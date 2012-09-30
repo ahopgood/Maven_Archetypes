@@ -4,8 +4,8 @@
 	<artifactId>Test_Archetype</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	<!-- To get the maven archetype plugin working you will need to point eclipse to the location of maven (not the embedded one) -->
 	<dependencies>
-
   		<dependency>
   			<groupId>junit</groupId>
   			<artifactId>junit</artifactId>
@@ -17,11 +17,15 @@
   			<artifactId>spring-context</artifactId>
   			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
+		</dependency>
 	</dependencies>
   
   <properties>
   	<spring.version>3.0.5.RELEASE</spring.version>
-  	<maven.home>C:\Program Files(x86)\Maven\apache-maven-3.0.4\</maven.home>
   </properties>
   
   <build>
@@ -45,9 +49,12 @@
 	  				<type>remote</type>
   				</container>
   				<configuration>
-  					<cargo.remote.username>${servlet.container.username}</cargo.remote.username>
-	  				<cargo.remote.password>${servlet.container.password}</cargo.remote.password>
-	  				<cargo.tomcat.manager.url>${servlet.container.manager.url}</cargo.tomcat.manager.url>
+  					<type>runtime</type>
+  					<properties>
+  						<cargo.remote.username>${servlet.container.username}</cargo.remote.username>
+	  					<cargo.remote.password>${servlet.container.password}</cargo.remote.password>
+	  					<cargo.tomcat.manager.url>${servlet.container.manager.url}</cargo.tomcat.manager.url>
+  					</properties>
   				</configuration>
   			</configuration>
   		</plugin>

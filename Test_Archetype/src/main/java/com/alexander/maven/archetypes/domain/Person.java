@@ -11,9 +11,13 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 public class Person {
 
 	private String nationalInsuranceNumber;
+	private String firstName;
+	private String lastName;
 	
-	public Person(String nationalInsuranceNumber){
+	public Person(String nationalInsuranceNumber, String firstName, String lastName){
 		this.nationalInsuranceNumber = nationalInsuranceNumber;
+		this.firstName 	= firstName;
+		this.lastName 	= lastName;
 	}
 	
 	public String getNationalInsuranceNumber(){
@@ -24,6 +28,14 @@ public class Person {
 		this.nationalInsuranceNumber = nationalInsuranceNumber;
 	}
 	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
 	@Override
 	public boolean equals(Object o){
 		if (this == o) return true;

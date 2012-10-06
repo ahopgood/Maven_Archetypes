@@ -11,11 +11,5 @@
 			http://www.springframework.org/schema/tx 
 			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
             
-            <context:component-scan base-package="com.alexander.maven.archetypes.controllers" />
-            
-            <bean id="personDao" class="com.alexander.maven.archetypes.domain.ListPersonDaoImpl"/>
-            
-			<bean id="controller" class="com.alexander.maven.archetypes.controllers.PersonController">
-           		<property name="personDao" ref="personDao"/>
-			</bean>
+
 </beans>

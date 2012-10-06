@@ -2,6 +2,7 @@ package com.alexander.maven.archetypes.domain;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * A domain object for holding the information on a person.
@@ -52,5 +53,14 @@ public class Person {
 		return new HashCodeBuilder(19,51)
 		.append(this.nationalInsuranceNumber)
 		.toHashCode();
+	}
+	
+	@Override
+	public String toString(){
+		return new ToStringBuilder(this)
+		.append(this.lastName)
+		.append(this.firstName)
+		.append(this.nationalInsuranceNumber)
+		.toString();
 	}
 }

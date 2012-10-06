@@ -9,20 +9,31 @@ import com.alexander.maven.archetypes.domain.Person;
 import com.alexander.maven.archetypes.domain.PersonDao;
 
 @Controller
-@RequestMapping("/persons/")
+@RequestMapping("/persons/*")
 public class PersonController {
 
+	protected static final String PERSON_NOT_FOUND = "Person could not be found.";
+
+	
 	@RequestMapping("add")
-	public boolean addPerson(@RequestParam String insuranceNumber, 
+	public @ResponseBody String addPerson(@RequestParam String insuranceNumber, 
 			@RequestParam String firstName, 
 			@RequestParam String secondName){
+		System.out.println("In the addPerson call");
 		Person person = new Person(insuranceNumber, firstName, secondName);
-		return this.personDao.addPerson(person);
+		return ""+this.personDao.addPerson(person);
 	}
 	
 	@RequestMapping("get")
 	public @ResponseBody String getPerson(@RequestParam String insuranceNumber){
+		if (this.personDao == null){
+			System.out.println("Person DAO is null");
+		}
 		Person person = this.personDao.findPersonByNationalInsuranceNumber(insuranceNumber);
+		if (person == null) {
+			System.out.println("Could not find a person for that insurance number");
+			return PersonController.PERSON_NOT_FOUND;
+		}
 		return "Person :"+person.getLastName()+", "+person.getFirstName()+" #"+person.getNationalInsuranceNumber();
 	}
 	
@@ -38,7 +49,7 @@ public class PersonController {
 	}
 	
 	public void setPersonDao(@RequestParam PersonDao personDao){
-		System.out.println("Setting the PersonDao");
+		System.out.println("Setting the PersonDao "+personDao);
 		this.personDao = personDao;
 	}
 	

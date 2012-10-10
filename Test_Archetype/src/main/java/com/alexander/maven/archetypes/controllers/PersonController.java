@@ -37,6 +37,11 @@ public class PersonController {
 		return "Person :"+person.getLastName()+", "+person.getFirstName()+" #"+person.getNationalInsuranceNumber();
 	}
 	
+	@RequestMapping("put")
+	public @ResponseBody String addPerson(){
+		return "";
+	}
+	
 	@RequestMapping("staticGet")
 	public @ResponseBody String getStatic(){
 		return "Static get";

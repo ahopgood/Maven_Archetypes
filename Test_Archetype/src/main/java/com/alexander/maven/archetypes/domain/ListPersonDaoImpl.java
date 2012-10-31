@@ -1,11 +1,20 @@
 package com.alexander.maven.archetypes.domain;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class ListPersonDaoImpl implements PersonDao {
 
 	protected List<Person> persons = new LinkedList<Person>();
+	
+	public ListPersonDaoImpl(){
+
+	}
+	
+	public ListPersonDaoImpl(List<Person> persons){
+		this.persons = persons;
+	}
 	
 	/**
 	 * Should find a person by their national insurance number
@@ -28,5 +37,13 @@ public class ListPersonDaoImpl implements PersonDao {
 			return persons.add(person);
 		}
 	}
-
+	
+	public List<Person> getAll(){
+		List<Person> people = new LinkedList<Person>();
+		Iterator<Person> iter = persons.iterator();
+		while (iter.hasNext()) {
+			people.add(iter.next());
+		}
+		return people;
+	}
 }

@@ -15,6 +15,8 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	
+	public Person(){	}
+	
 	public Person(String nationalInsuranceNumber, String firstName, String lastName){
 		this.nationalInsuranceNumber = nationalInsuranceNumber;
 		this.firstName 	= firstName;
@@ -32,20 +34,26 @@ public class Person {
 	public String getFirstName() {
 		return firstName;
 	}
+	
+	public void setFirstName(String firstName){
+		this.firstName = firstName;
+	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
+	public void setLastName(String lastName){
+		this.lastName = lastName;
+	}
+	
 	@Override
 	public boolean equals(Object o){
 		if (this == o) return true;
 		if (o == null || this.getClass() != o.getClass()) return false;
 		
 		Person person = (Person)o;
-		return new EqualsBuilder()
-			.append(this.nationalInsuranceNumber, person.nationalInsuranceNumber)
-			.isEquals();
+		return this.nationalInsuranceNumber.equalsIgnoreCase(person.nationalInsuranceNumber);
 	}
 	
 	@Override

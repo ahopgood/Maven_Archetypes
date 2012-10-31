@@ -5,13 +5,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.LinkedList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ListPersonDaoImplTest {
 
-	private String NAT_INS_NUMBER = "JK168376A";
+	private String NAT_INS_NUMBER 				= "JK168376A";
+	private String LOWER_CASE_NAT_INS_NUMBER 	= "jk168376a";
+	private String MIXED_CASE_NAT_INS_NUMBER	= "jK168376A";
 	private ListPersonDaoImpl personDao;
 	
 	@Before
@@ -47,9 +51,21 @@ public class ListPersonDaoImplTest {
 		assertTrue(!personDao.persons.isEmpty());
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());		
 		
-		//New object same national insurance number
+		//New object same upper case national insurance number
 		Person person2 = new Person(NAT_INS_NUMBER,"Alex","Hopgood");
 		assertTrue(!personDao.addPerson(person2));
+		assertTrue(!personDao.persons.isEmpty());
+		assertEquals("We should only have one element in the list.",1,personDao.persons.size());
+		
+		//New object same lower case national insurance number
+		Person person3 = new Person(LOWER_CASE_NAT_INS_NUMBER,"Alex","Hopgood");
+		assertTrue(!personDao.addPerson(person3));
+		assertTrue(!personDao.persons.isEmpty());
+		assertEquals("We should only have one element in the list.",1,personDao.persons.size());
+		
+		//New object same mixed case national insurance number
+		Person person4 = new Person(MIXED_CASE_NAT_INS_NUMBER,"Alex","Hopgood");
+		assertTrue(!personDao.addPerson(person4));
 		assertTrue(!personDao.persons.isEmpty());
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());
 	}
@@ -75,9 +91,17 @@ public class ListPersonDaoImplTest {
 		Person differentFound = personDao.findPersonByNationalInsuranceNumber("XXXXX");
 		assertNull(differentFound);
 		
-		//find person that is in collection
+		//find person that is in collection with upper case national insurance number
 		assertTrue(personDao.addPerson(new Person(NAT_INS_NUMBER,"Alex","Hopgood")));
-		Person found = personDao.findPersonByNationalInsuranceNumber(NAT_INS_NUMBER);
-		assertNotNull(found);
+		Person upperFound = personDao.findPersonByNationalInsuranceNumber(NAT_INS_NUMBER);
+		assertNotNull(upperFound);
+		
+		//find person that is in collection with lower case national insurance number
+		Person lowerFound = personDao.findPersonByNationalInsuranceNumber(LOWER_CASE_NAT_INS_NUMBER);
+		assertNotNull(lowerFound);
+		
+		//find person that is in collection with mixed case national insurance number
+		Person mixedFound = personDao.findPersonByNationalInsuranceNumber(this.MIXED_CASE_NAT_INS_NUMBER);
+		assertNotNull(mixedFound);
 	}
 }

@@ -107,6 +107,12 @@
 				console.log(request);
 				console.log("Initial Response Text " + request.responseText);
 				document.getElementById("results").innerHTML = request.responseText;
+				var template = document.getElementById("personTemplate").cloneNode(true);
+				//template.getElementById("templateInsuranceNumber").innerHTML = response.;
+				//template.getElementById("templateFirstName").innerHTML = response.;
+				//template.getElementById("templateLastName").innerHTML = response.;
+				console.log("Template");
+				console.log(template);
 
 			}, contentType);
 		};
@@ -149,29 +155,40 @@
 	<body>
 		<h1>Test Header</h1>
 		<!-- Turn some of these into ajax requests, have others use the ModelAndView combined with JSP's? -->
-		<a id="addPersonLink" href="<c:url value='/persons/add?insuranceNumber=JK168376A&firstName=Alex&secondName=Hopgood' />">Add Person</a>
-		<br />
-		<a id="getPersonLink" href="<c:url value='/persons/get?insuranceNumber=JK168376A' />">Get person </a>
-		<br />
-		<a id="staticGet" href="<c:url value='/persons/staticGet' />">Static Get</a>
-		<br />
-		<a href="#" onclick="getAll()">Get All</a>
-		<br />
-		<label>Get with Ajax</label>
-		<input type="text" id="insuranceNumber"/>
-		<input type="button" onclick="getIndividual()" value="Click Me"/>
-		<br />
-		<label>Get with JSON</label>
-		<input type="text" id="jsonInsuranceNumber"/>
-		<input type="button" onclick="getJsonIndividual()" value="Click Me"/>		
-		<br />
-		<div id="tableContainer">
+		<fieldset>
+			<legend>JSP Links</legend>
+			<a id="addPersonLink" href="<c:url value='/persons/add?insuranceNumber=JK168376A&firstName=Alex&secondName=Hopgood' />">Add Person</a>
+			<br />
+			<a id="getPersonLink" href="<c:url value='/persons/get?insuranceNumber=JK168376A' />">Get person </a>
+			<br />
+			<a id="staticGet" href="<c:url value='/persons/staticGet' />">Static Get</a>
+			<br />
+		</fieldset>
+		<fieldset>
+			<legend>Ajax Onclick</legend>
+			<a href="#" onclick="getAll()">Get All</a>
+			<br />
+			<label>Get with Ajax</label>
+			<input type="text" id="insuranceNumber"/>
+			<input type="button" onclick="getIndividual()" value="Click Me"/>
+			<br />
 			<table>
 				<tr id="personHeaderRow">
 					<td>Insurance Number</td><td>First Name</td><td>Last Name</td>
 				</tr>
 				<tr id="inputHeaderRow">
 					<td><input type="text" id="postInsuranceNumber"/></td><td><input type="text" id="postFirstName"/></td><td><input type="text" id="postLastName"/></td><td><input type="button" onclick="postIndividual()" value="Post Person"/></td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend>JSON Onclick</legend>
+			<label>Get with JSON</label>
+			<input type="text" id="jsonInsuranceNumber"/>
+			<input type="button" onclick="getJsonIndividual()" value="Click Me"/>
+			<table>
+				<tr id="personHeaderRow">
+					<td>Insurance Number</td><td>First Name</td><td>Last Name</td>
 				</tr>
 				<tr id="jsonInputHeaderRow">
 					<td><input type="text" id="postJsonInsuranceNumber"/></td>
@@ -180,12 +197,21 @@
 					<td><input type="button" onclick="postJsonIndividual()" value="Post Json Person"/></td>
 				</tr>
 			</table>
+		</fieldset>
+
+		<div id="tableContainer">
+			<table id="personTable">
+				<tr id="personHeaderRow">
+					<td>Insurance Number</td><td>First Name</td><td>Last Name</td>
+				</tr>
+			</table>
 		</div>
 		<div id="results">	
 		</div>
-		<tr id="personTemplate">
-			<td id="templateInsuranceNumber"></td><td id="templateFirstName"><td></td><td id="templateLastName"></td>
-		</tr>
-		
+		<table>
+			<tr id="personTemplate">
+				<td id="templateInsuranceNumber"></td><td id="templateFirstName"><td></td><td id="templateLastName"></td>
+			</tr>
+		</table>		
 	</body>
 </html>

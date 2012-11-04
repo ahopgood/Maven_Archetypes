@@ -73,10 +73,15 @@ public class PersonController {
 	}
 	
 	@RequestMapping(value = "addJson", method = RequestMethod.POST)
-	public @ResponseBody String addPerson(@RequestBody Person person){
+	public @ResponseBody Person addPerson(@RequestBody Person person){
 		//adding @RequestBody will stop the controller from trying to extract args as a form parameter and instead as a json obj
 		System.out.println("In the add Json Person call "+person);
-		return ""+this.personDao.addPerson(person);
+		boolean result = this.personDao.addPerson(person);
+		if (result){
+			return person;
+		} else {
+			return null;
+		}
 	}
 	
 	protected Person findPerson(String insuranceNumber){

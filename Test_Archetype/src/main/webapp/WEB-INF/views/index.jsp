@@ -1,5 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
+	<head>
+		<script type="text/javascript" src="<c:url value="/resources/jquery/1.8.2/jquery-1.8.2.js" />"></script>
+
 	<script type="text/javascript">
 		var bob = function test(){
 			console.log("Testing log output");
@@ -48,6 +51,8 @@
 			var contentType	= "application/json";
 			get(params, url, function success(request){
 				console.log(request);
+				var json = JSON.parse(request.responseText);
+				console.log(json);
 				console.log("Initial Response Text " + request.responseText);
 				document.getElementById("results").innerHTML = request.responseText;
 			}, contentType);
@@ -101,19 +106,18 @@
 							};
 			var url			= "persons/addJson";
 			var contentType = "application/json";
-			console.log("Params");
-			console.log(params);
 			post(params, url, function success(request){
-				console.log(request);
-				console.log("Initial Response Text " + request.responseText);
-				document.getElementById("results").innerHTML = request.responseText;
-				var template = document.getElementById("personTemplate").cloneNode(true);
-				//template.getElementById("templateInsuranceNumber").innerHTML = response.;
-				//template.getElementById("templateFirstName").innerHTML = response.;
-				//template.getElementById("templateLastName").innerHTML = response.;
-				console.log("Template");
-				console.log(template);
-
+				var jsonObj 	= JSON.parse(request.responseText);
+				var template 	= document.getElementById("personTemplate").cloneNode(true);
+				var childNodes 	= template.childNodes;
+				var insuranceNode = childNodes.item(1);
+				insuranceNode.innerHTML = jsonObj.nationalInsuranceNumber;
+				var firstNameNode = childNodes.item(2);
+				firstNameNode.innerHTML = jsonObj.firstName;
+				var lastNameNode = childNodes.item(3);
+				lastNameNode.innerHTML = jsonObj.lastName;
+				//add the new node to the 
+				document.getElementById("personTable").appendChild(template);
 			}, contentType);
 		};
 		
@@ -145,10 +149,93 @@
 				}
 			}
 			return response;
-		};		
-	
+		};
+		
+		
+		
+		function getJQueryJsonIndividual(){
+			var insNumber 	= document.getElementById("jsonJqueryInsuranceNumber").value;
+			var params		= "insuranceNumber="+insNumber;
+			var url = "persons/jsonGet";
+			jqueryJsonGet(params, url, 
+				function success( result ){
+					console.log(result);
+					var template = tabulatePerson(result, "personTemplate");
+					//jsonPersonTable
+					document.getElementById("personTable").appendChild(template);
+				},
+				function failure(jqXHR, textStatus){
+					alert("Request failed "+textStatus);
+				}
+			);
+		};
+		
+		function postJqueryJsonIndividual(){
+			var insNumber 	= document.getElementById("postJqueryJsonInsuranceNumber").value;
+			var firstName 	= document.getElementById("postJqueryJsonFirstName").value;
+			var lastName 	= document.getElementById("postJqueryJsonLastName").value;
+			var params		= { 	"nationalInsuranceNumber" 	: insNumber,
+									"firstName"					: firstName,
+									"lastName"					: lastName
+							};
+			var url			= "persons/addJson";
+			jqueryJsonPost(params, url, 
+				function success( result ){
+				console.log(result);
+				var template = tabulatePerson(result, "personTemplate");
+				//jsonPersonTable
+				document.getElementById("personTable").appendChild(template);
+				}, 
+				function failure(jqXHR, textStatus){
+					alert("Request failed "+textStatus);
+				}
+			);
+		};
+		
+		function jqueryJsonGet(params, url, success, failure){
+			jqueryGet(params, url, success, failure, "application/json", "json");
+		};
+		
+		function jqueryJsonPost(params, url, success, failure){
+			jqueryPost(params, url, success, failure, "application/json", "json");
+		};
+		
+		function jqueryGet(params, url, success, failure, contentType, dataType){
+			jqueryAjax(params, url, success, failure, contentType, dataType, "GET");
+		};
+		
+		function jqueryPost(params, url, success, failure, contentType, dataType){
+			params = JSON.stringify(params);
+			jqueryAjax(params, url, success, failure, contentType, dataType, "POST");
+		};
+		
+		function jqueryAjax(params, url, success, failure, contentType, dataType, requestType){
+			$.ajax({
+				type: requestType,
+				url: url,
+				data: params,
+				dataType: dataType,
+				accept: contentType,
+				contentType: contentType
+			})
+			.done(success)
+			.fail(failure);
+		};
+		
+		function tabulatePerson( person, templateId ){
+			console.log("in tabulate person");
+			var template 	= document.getElementById(templateId).cloneNode(true);
+			var childNodes 	= template.childNodes;
+			var insuranceNode = childNodes.item(1);
+			insuranceNode.innerHTML = person.nationalInsuranceNumber;
+			var firstNameNode = childNodes.item(2);
+			firstNameNode.innerHTML = person.firstName;
+			var lastNameNode = childNodes.item(3);
+			lastNameNode.innerHTML = person.lastName;
+			return template;
+		};
+		
 	</script>
-	<head>
 		<title>A Spring MVC Index page</title>
 	</head>
 	
@@ -198,6 +285,24 @@
 				</tr>
 			</table>
 		</fieldset>
+		
+		<fieldset>
+			<legend>JQuery JSON Onclick</legend>
+			<label>JQuery with JSON</label>
+			<input type="text" id="jsonJqueryInsuranceNumber"/>
+			<input type="button" onclick="getJQueryJsonIndividual()" value="Click Me"/>
+			<table id="jsonPersonTable">
+				<tr id="jsonPersonHeaderRow">
+					<td>Insurance Number</td><td>First Name</td><td>Last Name</td>
+				</tr>
+				<tr id="jqueryJsonInputHeaderRow">
+					<td><input type="text" id="postJqueryJsonInsuranceNumber"/></td>
+					<td><input type="text" id="postJqueryJsonFirstName"/></td>
+					<td><input type="text" id="postJqueryJsonLastName"/></td>
+					<td><input type="button" onclick="postJqueryJsonIndividual()" value="Post Jquery Json Person"/></td>
+				</tr>
+			</table>
+		</fieldset>
 
 		<div id="tableContainer">
 			<table id="personTable">
@@ -210,7 +315,7 @@
 		</div>
 		<table>
 			<tr id="personTemplate">
-				<td id="templateInsuranceNumber"></td><td id="templateFirstName"><td></td><td id="templateLastName"></td>
+				<td id="templateInsuranceNumber"></td><td id="templateFirstName"><td id="templateLastName"></td>
 			</tr>
 		</table>		
 	</body>

@@ -26,5 +26,6 @@ public class StartUp {
 		} else {
 			System.out.println("Have the wrong type of bean class "+bean2.getClass().getSimpleName());
 		}
+		System.out.println("Finished context");
 	}
 }

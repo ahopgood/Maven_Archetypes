@@ -1,15 +1,18 @@
 package com.alexander.maven.archetypes.domain.graph;
 
-import java.util.Collection;
-import java.util.Set;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.neo4j.cypher.internal.symbols.RelationshipType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.mapping.MappingPolicy;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -32,38 +35,58 @@ public class PersonNodeTest {
 
 	@Test @Transactional public void 
 	persistedPerson_ShouldBeRetrievable() {
-		PersonNode alex 	= new PersonNode("Alex", 	"Hopgood", "JK168376A");
-		PersonNode chris 	= new PersonNode("Chris", 	"Hopgood", "JK168376C");
+		PersonNode alex 	= new PersonNode("Alex", 	"Hopgood");
+		PersonNode chris 	= new PersonNode("Chris", 	"Hopgood");
 		template.save(alex);
 		template.save(chris);
 		
 		PersonNode foundPerson = template.findOne(alex.getId(), PersonNode.class);
+		assertEquals(alex.getFirstName(), 	foundPerson.getFirstName());
+		assertEquals(alex.getLastName(), 	foundPerson.getLastName());
 	}
 
 
 	@Test @Transactional public void 
 	persistedPerson_withRelation_ShouldBeRetrievable() {
-		PersonNode alex 	= new PersonNode("Alex", 	"Hopgood", "JK168376A");
-		PersonNode chris 	= new PersonNode("Chris", 	"Hopgood", "JK168376C");
+		PersonNode alex 	= new PersonNode("Alex", 	"Hopgood");
+		PersonNode chris 	= new PersonNode("Chris", 	"Hopgood");
 		alex.related(chris);
-		
-		Set<PersonNode> relations = alex.getRelatives();
-		System.out.println(relations.size());
-		for (PersonNode relative : relations){
-			System.out.println("Alex is related to "+relative.getFirstName());
-		}
-
 				
 		template.save(alex);
 		template.save(chris);
 
 		PersonNode foundPerson = template.findOne(alex.getId(), PersonNode.class);
-		System.out.println("Found "+foundPerson.getFirstName());
-		Set<PersonNode> savedRelations = foundPerson.getRelatives();
-		System.out.println(savedRelations.size());
-		for (PersonNode relative : savedRelations){
-			System.out.println(relative.getFirstName());
-		}
+		assertEquals(1,foundPerson.getRelatives().size());
+		assertEquals(alex.getFirstName(), 	foundPerson.getFirstName());
+		assertEquals(alex.getLastName(), 	foundPerson.getLastName());
+	}
+	
+	@Test @Transactional public void 
+	persistedPerson_withContribution_ShouldBeRetrievable() {
+		PersonNode alex 			= new PersonNode("Alex", 	"Hopgood");
+		NationalInsurance alexNi 	= new NationalInsurance("JK168376A");
+		template.save(alexNi);
+		PersonNode chris 			= new PersonNode("Chris", 	"Hopgood");
+		alex.related(chris);
+
+		NationalInsurance foundNi = template.findOne(alexNi.getId(), NationalInsurance .class);
+		assertEquals("JK168376A",foundNi.getNationalInsuranceNumber());
 		
+		alex.contributeNationalInsurance(alexNi, 1000);
+		template.save(alex);
+		
+		PersonNode foundPerson = template.findOne(alex.getId(), PersonNode.class);
+		assertEquals(1,foundPerson.getRelatives().size());
+		
+		assertEquals(1,foundPerson.getContribs().size());
+		Iterator<NIContribution> iter 	= foundPerson.getContribs().iterator();
+		NIContribution contrib 			= iter.next();
+		assertEquals(1000,contrib.getPaymentAmount());
+		
+		System.out.println(contrib.getNationalInsurance());
+		
+		assertNotNull(contrib.getNationalInsurance().getId());
+		assertEquals("JK168376A",contrib.getNationalInsurance()
+				.getNationalInsuranceNumber());		
 	}
 }

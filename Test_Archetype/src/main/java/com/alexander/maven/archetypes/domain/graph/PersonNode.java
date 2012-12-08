@@ -17,25 +17,22 @@ public class PersonNode {
 	@GraphId private Long id;
 	private String firstName;
 	private String lastName;
-	private String nationalInsuranceNumber;
 	
-	@RelatedToVia( type = "CONTRIBUTES")
-	private Collection<NationalInsurance> contribs = new HashSet<NationalInsurance>();
+	@Fetch @RelatedToVia( elementClass = NIContribution.class, type = "CONTRIBUTES" )
+	private Set<NIContribution> contribs = new HashSet<NIContribution>();
 	
-	@Fetch
-	@RelatedTo( type = "RELATED", direction = Direction.BOTH )
+	@Fetch @RelatedTo( type = "RELATED", direction = Direction.BOTH )
 	private Set<PersonNode> relatives = new HashSet<PersonNode>();
 	
 	public PersonNode(){	/*required by neo4j*/	}
 	
-	public PersonNode(String firstName, String lastName, String nationalInsuranceNumber){
+	public PersonNode(String firstName, String lastName){
 		this.firstName 					= firstName;
 		this.lastName 					= lastName;
-		this.nationalInsuranceNumber 	= nationalInsuranceNumber;
 	}
 	
-	public NationalInsurance contributeNationalInsurance(PersonNode person, Date period, int amount){
-		NationalInsurance insurance = new NationalInsurance(this, period, amount);
+	public NIContribution contributeNationalInsurance(NationalInsurance nationalInsurance, int amount){
+		NIContribution insurance = new NIContribution(this, nationalInsurance, new Date(), amount);
 		contribs.add(insurance);
 		return insurance;
 	}
@@ -46,10 +43,6 @@ public class PersonNode {
 			relation.related(this);
 		}
 	}
-	
-//	public void related(PersonNode personNode, String relationType){
-//		this.relations.add(new FamilyRelation(this, personNode, relationType));
-//	}
 
 	public Long getId() {
 		return id;
@@ -75,19 +68,11 @@ public class PersonNode {
 		this.lastName = lastName;
 	}
 
-	public String getNationalInsuranceNumber() {
-		return nationalInsuranceNumber;
-	}
-
-	public void setNationalInsuranceNumber(String nationalInsuranceNumber) {
-		this.nationalInsuranceNumber = nationalInsuranceNumber;
-	}
-
-	public Iterable<NationalInsurance> getContribs() {
+	public Set<NIContribution> getContribs() {
 		return contribs;
 	}
 
-	public void setContribs(Collection<NationalInsurance> contribs) {
+	public void setContribs(Set<NIContribution> contribs) {
 		this.contribs = contribs;
 	}
 

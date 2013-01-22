@@ -1,6 +1,5 @@
 package com.alexander.maven.archetypes.domain.graph;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,13 +7,15 @@ import java.util.Set;
 import org.neo4j.graphdb.Direction;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;
+import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
 @NodeEntity
 public class PersonNode {
-	@GraphId private Long id;
+	@GraphId private Long nodeId;
+	@Indexed private String insuranceNumber;
 	private String firstName;
 	private String lastName;
 	
@@ -26,15 +27,20 @@ public class PersonNode {
 	
 	public PersonNode(){	/*required by neo4j*/	}
 	
-	public PersonNode(String firstName, String lastName){
+	public PersonNode(String insuranceNumber, String firstName, String lastName){
+		this.insuranceNumber			= insuranceNumber;
 		this.firstName 					= firstName;
 		this.lastName 					= lastName;
 	}
 	
 	public NIContribution contributeNationalInsurance(NationalInsurance nationalInsurance, int amount){
-		NIContribution insurance = new NIContribution(this, nationalInsurance, new Date(), amount);
-		contribs.add(insurance);
-		return insurance;
+		if (nationalInsurance.getNationalInsuranceNumber().equalsIgnoreCase(this.insuranceNumber)){
+			NIContribution insurance = new NIContribution(this, nationalInsurance, new Date(), amount);
+			contribs.add(insurance);
+			return insurance;
+		} else {
+			return null;
+		}
 	}
 	
 	public void related(PersonNode relation){
@@ -44,12 +50,12 @@ public class PersonNode {
 		}
 	}
 
-	public Long getId() {
-		return id;
+	public Long getNodeId() {
+		return nodeId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setNodeId(Long nodeId) {
+		this.nodeId = nodeId;
 	}
 
 	public String getFirstName() {
@@ -82,5 +88,9 @@ public class PersonNode {
 
 	public void setRelatives(Set<PersonNode> relatives) {
 		this.relatives = relatives;
+	}
+
+	public String getInsuranceNumber() {
+		return insuranceNumber;
 	}
 }

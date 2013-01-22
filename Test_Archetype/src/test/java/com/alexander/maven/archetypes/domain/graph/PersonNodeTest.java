@@ -35,12 +35,12 @@ public class PersonNodeTest {
 
 	@Test @Transactional public void 
 	persistedPerson_ShouldBeRetrievable() {
-		PersonNode alex 	= new PersonNode("Alex", 	"Hopgood");
-		PersonNode chris 	= new PersonNode("Chris", 	"Hopgood");
+		PersonNode alex 	= new PersonNode("JK168376A", "Alex", 	"Hopgood");
+		PersonNode chris 	= new PersonNode("JK168377B", "Chris", 	"Hopgood");
 		template.save(alex);
 		template.save(chris);
 		
-		PersonNode foundPerson = template.findOne(alex.getId(), PersonNode.class);
+		PersonNode foundPerson = template.findOne(alex.getNodeId(), PersonNode.class);
 		assertEquals(alex.getFirstName(), 	foundPerson.getFirstName());
 		assertEquals(alex.getLastName(), 	foundPerson.getLastName());
 	}
@@ -48,14 +48,14 @@ public class PersonNodeTest {
 
 	@Test @Transactional public void 
 	persistedPerson_withRelation_ShouldBeRetrievable() {
-		PersonNode alex 	= new PersonNode("Alex", 	"Hopgood");
-		PersonNode chris 	= new PersonNode("Chris", 	"Hopgood");
+		PersonNode alex 	= new PersonNode("JK168376A", "Alex", 	"Hopgood");
+		PersonNode chris 	= new PersonNode("JK168377B", "Chris", 	"Hopgood");
 		alex.related(chris);
 				
 		template.save(alex);
 		template.save(chris);
 
-		PersonNode foundPerson = template.findOne(alex.getId(), PersonNode.class);
+		PersonNode foundPerson = template.findOne(alex.getNodeId(), PersonNode.class);
 		assertEquals(1,foundPerson.getRelatives().size());
 		assertEquals(alex.getFirstName(), 	foundPerson.getFirstName());
 		assertEquals(alex.getLastName(), 	foundPerson.getLastName());
@@ -63,10 +63,10 @@ public class PersonNodeTest {
 	
 	@Test @Transactional public void 
 	persistedPerson_withContribution_ShouldBeRetrievable() {
-		PersonNode alex 			= new PersonNode("Alex", 	"Hopgood");
+		PersonNode alex 			= new PersonNode("JK168376A", "Alex", 	"Hopgood");
 		NationalInsurance alexNi 	= new NationalInsurance("JK168376A");
 		template.save(alexNi);
-		PersonNode chris 			= new PersonNode("Chris", 	"Hopgood");
+		PersonNode chris 			= new PersonNode("JK16837BA", "Chris", 	"Hopgood");
 		alex.related(chris);
 
 		NationalInsurance foundNi = template.findOne(alexNi.getId(), NationalInsurance .class);
@@ -75,7 +75,7 @@ public class PersonNodeTest {
 		alex.contributeNationalInsurance(alexNi, 1000);
 		template.save(alex);
 		
-		PersonNode foundPerson = template.findOne(alex.getId(), PersonNode.class);
+		PersonNode foundPerson = template.findOne(alex.getNodeId(), PersonNode.class);
 		assertEquals(1,foundPerson.getRelatives().size());
 		
 		assertEquals(1,foundPerson.getContribs().size());

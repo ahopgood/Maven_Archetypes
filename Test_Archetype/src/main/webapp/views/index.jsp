@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>A JSON SPring MVC Index page</title>
+		<title>A JSON Spring MVC Index page</title>
 	</head>
 	
 	<body>

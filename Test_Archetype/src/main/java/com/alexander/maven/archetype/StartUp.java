@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alexander.maven.archetypes.controllers.PersonController;
 import com.alexander.maven.archetypes.domain.PersonDao;
+import com.alexander.maven.archetypes.domain.ReferenceNode;
 import com.alexander.maven.archetypes.domain.graph.PersonNode;
 import com.alexander.maven.archetypes.domain.graph.relationships.Rels;
 
@@ -71,6 +72,9 @@ public class StartUp {
 				PersonNode alex 	= new PersonNode("JK168376A", "Alex","Hopgood");
 				PersonNode chris 	= new PersonNode("JK168377B", "Chris","Hopgood");
 
+				Node refNode		= service.getReferenceNode();
+//				alex.setRefNode(new ReferenceNode(refNode));
+				
 				template.save(alex);
 				template.save(chris);
 				PersonNode found = template.findOne(alex.getNodeId(), PersonNode.class);

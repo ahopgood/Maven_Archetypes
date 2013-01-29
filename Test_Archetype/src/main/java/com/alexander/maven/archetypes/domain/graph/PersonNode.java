@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.Node;
 import org.springframework.data.neo4j.annotation.Fetch;
 import org.springframework.data.neo4j.annotation.GraphId;
 import org.springframework.data.neo4j.annotation.Indexed;
@@ -12,10 +13,12 @@ import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 
+import com.alexander.maven.archetypes.domain.ReferenceNode;
+
 @NodeEntity
 public class PersonNode {
 	@GraphId private Long nodeId;
-	@Indexed private String insuranceNumber;
+	@Indexed (unique = true, indexName = "insuranceNumber") private String insuranceNumber;
 	private String firstName;
 	private String lastName;
 	
@@ -24,6 +27,9 @@ public class PersonNode {
 	
 	@Fetch @RelatedTo( type = "RELATED", direction = Direction.BOTH )
 	private Set<PersonNode> relatives = new HashSet<PersonNode>();
+	
+//	@RelatedTo( type = "STARTS", direction = Direction.INCOMING)
+//	private ReferenceNode refNode;
 	
 	public PersonNode(){	/*required by neo4j*/	}
 	
@@ -90,7 +96,15 @@ public class PersonNode {
 		this.relatives = relatives;
 	}
 
+	public void setInsuranceNumber(String insuranceNumber){
+		this.insuranceNumber = insuranceNumber;
+	}
+	
 	public String getInsuranceNumber() {
 		return insuranceNumber;
 	}
+	
+//	public void setRefNode(ReferenceNode refNode){
+//		this.refNode = refNode;
+//	}
 }

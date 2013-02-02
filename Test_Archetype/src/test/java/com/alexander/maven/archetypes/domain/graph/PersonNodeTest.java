@@ -3,20 +3,18 @@ package com.alexander.maven.archetypes.domain.graph;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.neo4j.graphdb.Node;
-import org.neo4j.graphdb.PropertyContainer;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.graphdb.index.IndexHits;
+import org.neo4j.index.lucene.QueryContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.neo4j.conversion.EndResult;
 import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -53,41 +51,29 @@ public class PersonNodeTest {
 	persistedPerson_get_index() {
 		PersonNode alex 	= new PersonNode("JK168376A", "Alex", 	"Hopgood");
 		PersonNode chris 	= new PersonNode("JK168377B", "Chris", 	"Hopgood");
+		
 		template.save(alex);
 		template.save(chris);
-
-//		Index<Node> indexClass 	= template.getIndex("insuranceNumber", PersonNode.class);
-		Index<Node> indexClass 	= template.getIndex(PersonNode.class);
-		System.out.println(indexClass);
+		
+		Index<Node> indexClass 	= template.getIndex("insuranceNumber", PersonNode.class);
 		System.out.println("Index Name "+indexClass.getName());
-		
-		IndexHits<Node> indexHits = indexClass.get("insuranceNumber", "JK168376A");
-		while(indexHits.hasNext()){
-			Node index = indexHits.next();
-//			index
-			PersonNode per = template.convert(index, PersonNode.class);
-			System.out.println(per.getFirstName()+" "+per.getLastName()+" "+per.getInsuranceNumber());
-		}
-//		Index<PropertyContainer> indexString	= template.getIndex("insuranceNumber");
-//		System.out.println(indexString);
-		
-		System.out.println("Index by property name "+template.getGraphDatabase().getIndex("insuranceNumber"));
-		
-		PersonNode foundPerson = template.findOne(alex.getNodeId(), PersonNode.class);
-		assertEquals(alex.getFirstName(), 	foundPerson.getFirstName());
-		assertEquals(alex.getLastName(), 	foundPerson.getLastName());
+		IndexHits<Node> indexHits = indexClass.query("insuranceNumber", "*");
+		assertEquals("Should have two items in the index", indexHits.size(), 2);
 	}
 	
 	@Test @Transactional public void 
-	persistedPerson_no_duplicates() {
-		PersonNode alex 	= new PersonNode("JK168376A", "Alex", 	"Hopgood");
-		PersonNode chris 	= new PersonNode("JK168377B", "Chris", 	"Hopgood");
+	persistedPerson_insert_no_duplicates() {
+		PersonNode alex 		= new PersonNode("JK168376A", "Alex", 	"Hopgood");
+		PersonNode chris 		= new PersonNode("JK168377B", "Chris", 	"Hopgood");
+		PersonNode updatedAlex 	= new PersonNode("JK168376A", "Alexander", 	"Hopgood");
+		
 		template.save(alex);
 		template.save(chris);
+		template.save(updatedAlex);
 		
 		PersonNode foundPerson = template.findOne(alex.getNodeId(), PersonNode.class);
-		assertEquals(alex.getFirstName(), 	foundPerson.getFirstName());
-		assertEquals(alex.getLastName(), 	foundPerson.getLastName());
+		assertEquals(updatedAlex.getFirstName(), 	foundPerson.getFirstName());
+		assertEquals(alex.getLastName(), 			foundPerson.getLastName());
 	}
 
 

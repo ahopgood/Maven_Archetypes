@@ -12,13 +12,14 @@ import org.springframework.data.neo4j.annotation.Indexed;
 import org.springframework.data.neo4j.annotation.NodeEntity;
 import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
+import org.springframework.data.neo4j.support.index.IndexType;
 
 import com.alexander.maven.archetypes.domain.ReferenceNode;
 
 @NodeEntity
 public class PersonNode {
 	@GraphId private Long nodeId;
-	@Indexed (unique = true, indexName = "insuranceNumber") private String insuranceNumber;
+	@Indexed (unique = true, indexName = "insuranceNumber", indexType = IndexType.FULLTEXT) private String insuranceNumber;
 	private String firstName;
 	private String lastName;
 	
@@ -27,9 +28,6 @@ public class PersonNode {
 	
 	@Fetch @RelatedTo( type = "RELATED", direction = Direction.BOTH )
 	private Set<PersonNode> relatives = new HashSet<PersonNode>();
-	
-//	@RelatedTo( type = "STARTS", direction = Direction.INCOMING)
-//	private ReferenceNode refNode;
 	
 	public PersonNode(){	/*required by neo4j*/	}
 	
@@ -103,8 +101,4 @@ public class PersonNode {
 	public String getInsuranceNumber() {
 		return insuranceNumber;
 	}
-	
-//	public void setRefNode(ReferenceNode refNode){
-//		this.refNode = refNode;
-//	}
 }

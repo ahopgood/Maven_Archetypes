@@ -34,6 +34,19 @@ public class PersonNodeTest {
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	@Test @Transactional public void
+	persist_root_node(){
+        final Node referenceNode = template.getReferenceNode();
+        template.postEntityCreation(referenceNode,PersonNode.class);
+        final PersonNode root = template.findOne(referenceNode.getId(), PersonNode.class);
+        root.setFirstName("RootName");
+        template.save(root);
+        
+        assertEquals(referenceNode.getId(), (long) root.getNodeId());
+        assertEquals("RootName", referenceNode.getProperty("firstName"));
+        assertEquals("RootName", root.getFirstName());
+	}
 
 	@Test @Transactional public void 
 	persistedPerson_should_be_retrievable() {
@@ -94,14 +107,15 @@ public class PersonNodeTest {
 	
 	@Test @Transactional public void 
 	persistedPerson_withContribution_ShouldBeRetrievable() {
-		PersonNode alex 			= new PersonNode("JK168376A", "Alex", 	"Hopgood");
-		NationalInsurance alexNi 	= new NationalInsurance("JK168376A");
+		String insuranceNumber 		= "JK168376A";
+		PersonNode alex 			= new PersonNode(insuranceNumber, "Alex", 	"Hopgood");
+		NationalInsurance alexNi 	= new NationalInsurance(insuranceNumber);
 		template.save(alexNi);
 		PersonNode chris 			= new PersonNode("JK16837BA", "Chris", 	"Hopgood");
 		alex.related(chris);
 
-		NationalInsurance foundNi = template.findOne(alexNi.getId(), NationalInsurance .class);
-		assertEquals("JK168376A",foundNi.getNationalInsuranceNumber());
+		NationalInsurance foundNi = template.findOne(alexNi.getId(), NationalInsurance.class);
+		assertEquals(insuranceNumber, foundNi.getNationalInsuranceNumber());
 		
 		alex.contributeNationalInsurance(alexNi, 1000);
 		template.save(alex);
@@ -119,5 +133,20 @@ public class PersonNodeTest {
 		assertNotNull(contrib.getNationalInsurance().getId());
 		assertEquals("JK168376A",contrib.getNationalInsurance()
 				.getNationalInsuranceNumber());		
+	}
+	
+	@Test @Transactional public void
+	persistedPerson_withContribution_given_different_insurance_numbers(){
+		String insuranceNumber 		= "JK168376A";
+		String chrisInsuranceNumber	= "JK168376B";
+		PersonNode alex 			= new PersonNode(insuranceNumber, "Alex", 	"Hopgood");
+		NationalInsurance alexNi 	= new NationalInsurance(chrisInsuranceNumber);
+		template.save(alexNi);
+		PersonNode chris 			= new PersonNode(chrisInsuranceNumber, "Chris", 	"Hopgood");
+		alex.related(chris);
+		
+		alex.contributeNationalInsurance(alexNi, 1000);
+		template.save(alex);
+		assertEquals("Shouldn't have any contributions for alex", 0, alex.getContribs().size());
 	}
 }

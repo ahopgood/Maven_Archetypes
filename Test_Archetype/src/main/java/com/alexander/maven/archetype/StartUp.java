@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alexander.maven.archetypes.controllers.PersonController;
 import com.alexander.maven.archetypes.domain.PersonDao;
-import com.alexander.maven.archetypes.domain.ReferenceNode;
 import com.alexander.maven.archetypes.domain.graph.PersonNode;
+import com.alexander.maven.archetypes.domain.graph.RootEntity;
 import com.alexander.maven.archetypes.domain.graph.relationships.Rels;
 
 @Service

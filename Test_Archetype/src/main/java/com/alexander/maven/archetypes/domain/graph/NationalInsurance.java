@@ -24,7 +24,7 @@ public class NationalInsurance {
 		this.nationalInsuranceNumber 	= nationalInsuranceNumber;
 	}
 	
-	public void contribution(NIContribution contribution){
+	public void setContribution(NIContribution contribution){
 		this.contributions.add(contribution);
 	}
 

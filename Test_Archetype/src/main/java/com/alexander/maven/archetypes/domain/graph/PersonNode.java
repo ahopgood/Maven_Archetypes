@@ -14,7 +14,6 @@ import org.springframework.data.neo4j.annotation.RelatedTo;
 import org.springframework.data.neo4j.annotation.RelatedToVia;
 import org.springframework.data.neo4j.support.index.IndexType;
 
-import com.alexander.maven.archetypes.domain.ReferenceNode;
 
 @NodeEntity
 public class PersonNode {

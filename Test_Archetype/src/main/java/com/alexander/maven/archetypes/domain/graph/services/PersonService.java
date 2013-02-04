@@ -12,8 +12,8 @@ import org.springframework.data.neo4j.support.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alexander.maven.archetypes.domain.ReferenceNode;
 import com.alexander.maven.archetypes.domain.graph.PersonNode;
+import com.alexander.maven.archetypes.domain.graph.RootEntity;
 
 @Service
 public class PersonService {
@@ -29,20 +29,22 @@ public class PersonService {
 		System.out.println(template);
 		PersonNode alex 	= new PersonNode("JK168376A", "Alex","Hopgood");
 		PersonNode chris 	= new PersonNode("JK168377B", "Chris","Hopgood");
-		PersonNode alex2 	= new PersonNode("JK168376A", "Alex","Hopgood");
-		
-		ReferenceNode refNode = new ReferenceNode(template.getReferenceNode());
-//		template.save(refNode);
 		template.save(alex);
-		template.getIndex("insuranceNumber");
 		template.save(chris);
-//		template.save(alex2);
-//		template.createRelationshipBetween(template.getReferenceNode(), 
-//				alex, relationshipEntityClass, relationshipType, allowDuplicates)
-		PersonNode found = template.findOne(alex.getNodeId(), PersonNode.class);
-		
-		
-		System.out.println(found.getFirstName());
+
+        final Node referenceNode = template.getReferenceNode();
+        template.postEntityCreation(referenceNode,PersonNode.class);
+        final PersonNode root = template.findOne(referenceNode.getId(), PersonNode.class);
+        root.setFirstName("RootName");
+        template.save(root);
+        root.related(alex);
+        root.related(chris);
+        template.save(root);
+        alex.related(chris);
+        chris.related(alex);
+        
+        template.save(alex);
+        template.save(chris);
 		
 		return new LinkedList<PersonNode>();
 	}

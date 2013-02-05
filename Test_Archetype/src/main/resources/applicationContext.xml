@@ -16,4 +16,6 @@
 			<bean id="controller" class="com.alexander.maven.archetypes.controllers.PersonController">
            		<property name="personDao" ref="personDao"/>
 			</bean>
+			
+			
 </beans>

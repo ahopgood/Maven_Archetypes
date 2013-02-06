@@ -7,7 +7,7 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
 			http://www.springframework.org/schema/aop 
-			http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+			http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 			http://www.springframework.org/schema/tx 
 			http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
             
@@ -18,11 +18,18 @@
 			</bean>
 			
 			<!-- Person DAO instance -->
-			<bean id="aopPersonDao" class="com.alexander.maven.archetypes.domain.ListPersonDaoImpl" />
+			<bean id="aopPersonDao" class="com.alexander.maven.archetypes.aop.AopPersonDao" />
+			
+			<bean id="noPointcutPersonDao" class="com.alexander.maven.archetypes.aop.AopPersonDao" />
 			
 			<bean id="personAspect" class="com.alexander.maven.archetypes.aop.PersonAspect"/>
 			
 			<aop:config>
-				<aop:aspect id="personDaoAspect" ref="personAspect"/>
+				<aop:aspect ref="personAspect">
+					<aop:pointcut id="addAnyPerson" expression="execution(* com.alexander.maven.archetypes.aop.AopPersonDao.addPerson(
+																	com.alexander.maven.archetypes.domain.Person))
+																	and args(person)"/>
+					<aop:around pointcut-ref="addAnyPerson" method="print"/>
+				</aop:aspect>
 			</aop:config>
 </beans>

@@ -21,6 +21,7 @@ public class ListPersonDaoImpl implements PersonDao {
 	}
 
 	public boolean addPerson(Person person) {
+		if (person == null) return false;
 		if (person.getNationalInsuranceNumber() == null) return false;
 		if (persons.contains(person)){
 			return false;

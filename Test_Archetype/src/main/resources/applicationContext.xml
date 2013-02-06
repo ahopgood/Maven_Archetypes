@@ -17,5 +17,12 @@
            		<property name="personDao" ref="personDao"/>
 			</bean>
 			
+			<!-- Person DAO instance -->
+			<bean id="aopPersonDao" class="com.alexander.maven.archetypes.domain.ListPersonDaoImpl" />
 			
+			<bean id="personAspect" class="com.alexander.maven.archetypes.aop.PersonAspect"/>
+			
+			<aop:config>
+				<aop:aspect id="personDaoAspect" ref="personAspect"/>
+			</aop:config>
 </beans>

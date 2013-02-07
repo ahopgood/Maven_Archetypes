@@ -26,7 +26,7 @@ public class AopPersonDao implements PersonDao {
 
 	@Override
 	public boolean addPerson(Person person) {
-		if (person == null) return false;
+		if (person == null) throw new IllegalArgumentException("Cannot add a null person");
 		if (person.getNationalInsuranceNumber() == null) return false;
 		if (persons.contains(person)){
 			return false;

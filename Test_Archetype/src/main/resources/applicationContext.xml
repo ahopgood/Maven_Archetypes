@@ -28,8 +28,14 @@
 				<aop:aspect ref="personAspect">
 					<aop:pointcut id="addAnyPerson" expression="execution(* com.alexander.maven.archetypes.aop.AopPersonDao.addPerson(
 																	com.alexander.maven.archetypes.domain.Person))
-																	and args(person)"/>
-					<aop:around pointcut-ref="addAnyPerson" method="print"/>
+																	and args(person)
+																	and bean(aopPersonDao)"/>
+					<!-- Advice ordering is important -->
+					<aop:before pointcut-ref="addAnyPerson" method="before"/>
+					<aop:around pointcut-ref="addAnyPerson" method="around"/>
+					<aop:after-returning pointcut-ref="addAnyPerson" method="afterReturning" returning="success"/>
+					<aop:after-throwing pointcut-ref="addAnyPerson" method="afterThrowing"/>
+					<aop:after pointcut-ref="addAnyPerson" method="afterFinally"/> <!-- AfterFinally Advice -->
 				</aop:aspect>
 			</aop:config>
 </beans>

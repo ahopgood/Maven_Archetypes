@@ -22,10 +22,13 @@ public class AopStartUp {
 		
 		Person alex = new Person("JK168376A");
 		Person chris = new Person("JK168376C");
+		Person julie = new Person("JA658743B");
 		Person nick = new Person("JK168386D");
 
 		dao.addPerson(alex);
 		dao.addPerson(chris);
+		dao.addPerson(julie);
+		dao.addPerson(null);
 		
 		PersonDao nonAopDao	= context.getBean("noPointcutPersonDao", PersonDao.class);
 		nonAopDao.addPerson(nick);

@@ -22,10 +22,21 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.4</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-bundle</artifactId>
+			<version>${cxf.bundle.ver}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 	</dependencies>
   
   <properties>
   	<spring.version>3.0.5.RELEASE</spring.version>
+  	<cxf.bundle.ver>2.7.0</cxf.bundle.ver>
   </properties>
   
   <build>

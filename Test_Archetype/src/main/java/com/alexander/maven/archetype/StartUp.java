@@ -3,6 +3,7 @@ package com.alexander.maven.archetype;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.alexander.maven.archetype.ws.cxf.server.HelloServiceImpl;
 import com.alexander.maven.archetypes.controllers.PersonController;
 import com.alexander.maven.archetypes.domain.PersonDao;
 
@@ -26,5 +27,9 @@ public class StartUp {
 		} else {
 			System.out.println("Have the wrong type of bean class "+bean2.getClass().getSimpleName());
 		}
+		
+		HelloServiceImpl service = context.getBean("hello", HelloServiceImpl.class);
+		System.out.println(service.sayHi("General Adama"));
+		while(true){}
 	}
 }

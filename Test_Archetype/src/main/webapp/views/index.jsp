@@ -12,5 +12,9 @@
 		<a id="getPersonLink" href="<c:url value='/persons/get?insuranceNumber=JK168376A' />">Get person </a>
 		<br />
 		<a id="staticGet" href="<c:url value='/persons/staticGet' />">Static Get</a>
+		<br />
+		<a id="parameter" href="<c:url value='/persons/' />">Template URI Get</a>
+		<p> a new paragraph boyo </p>
+		<p>testing</p>
 	</body>
 </html>

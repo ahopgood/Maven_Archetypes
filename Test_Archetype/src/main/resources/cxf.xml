@@ -11,7 +11,7 @@
 
 	<cxf:bus>
 		<cxf:features>
-			${cxf.logging}
+			<cxf:logging limit="1024000" />
 		</cxf:features>
 	</cxf:bus>
 	

@@ -9,5 +9,5 @@
 			
 			<jaxws:client id="helloClient" 
 				serviceClass="com.alexander.maven.archetype.ws.cxf.server.HelloService" 
-				address="http://localhost:8080/Test_Archetype-0.0.1-SNAPSHOT/services/HelloService" />
+				address="http://localhost:8080/CxfTest/services/HelloService" />
 </beans>

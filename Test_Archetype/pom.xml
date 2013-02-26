@@ -1,9 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.alexander.maven.archetypes</groupId>
-	<artifactId>Test_Archetype</artifactId>
+	<artifactId>CXF_Spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+	
 	<!-- To get the maven archetype plugin working you will need to point eclipse to the location of maven (not the embedded one) -->
 	<dependencies>
   		<dependency>
@@ -37,9 +38,11 @@
   <properties>
   	<spring.version>3.0.5.RELEASE</spring.version>
   	<cxf.bundle.ver>2.7.0</cxf.bundle.ver>
+  	<final.name>CxfTest</final.name>
   </properties>
   
   <build>
+  	<finalName>${final.name}</finalName>
     <plugins>
   		<plugin>
   			<groupId>org.apache.maven.plugins</groupId>

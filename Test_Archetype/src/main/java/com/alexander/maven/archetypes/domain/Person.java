@@ -12,6 +12,8 @@ public class Person {
 
 	private String nationalInsuranceNumber;
 	
+	public Person(){	} //no-arg constructor required for cxf web services
+	
 	public Person(String nationalInsuranceNumber){
 		this.nationalInsuranceNumber = nationalInsuranceNumber;
 	}

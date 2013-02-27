@@ -6,8 +6,28 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans 
 			http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
 						http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+			<bean id="clientPasswordCallbackBean" class="com.alexander.maven.archetype.ws.cxf.client.ClientPasswordCallback">
+				<constructor-arg value="password" />
+			</bean>
 			
 			<jaxws:client id="helloClient" 
 				serviceClass="com.alexander.maven.archetype.ws.cxf.server.HelloService" 
-				address="http://localhost:8080/CxfTest/services/HelloService" />
+				address="http://localhost:8080/CxfTest/services/HelloService">
+				<jaxws:outInterceptors>
+					<bean class="org.apache.cxf.binding.soap.saaj.SAAJOutInterceptor" />
+					<bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+						<constructor-arg>
+							<map>
+								<entry key="action" 			value="UsernameToken"/>
+								<entry key="user"				value="Alex"/>
+								<entry key="passwordType"		value="PasswordText"/>
+								<entry key="passwordCallbackRef">
+									<ref bean="clientPasswordCallbackBean"/>
+								</entry>
+							</map>
+						</constructor-arg>
+					</bean>
+				</jaxws:outInterceptors>
+			</jaxws:client>
 </beans>

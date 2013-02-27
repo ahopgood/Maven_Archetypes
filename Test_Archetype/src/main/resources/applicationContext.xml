@@ -24,7 +24,25 @@
            		<property name="personDao" ref="personDao"/>
 			</bean>
 			
+			<bean id="passwordCallbackBean" class="com.alexander.maven.archetype.ws.cxf.server.PasswordCallback"/>
+			
 			<bean id="hello" class="com.alexander.maven.archetype.ws.cxf.server.HelloServiceImpl" />
 			
-			<jaxws:endpoint id="helloService" implementor="#hello" address="/HelloService" />
+			<jaxws:endpoint id="helloService" implementor="#hello" address="/HelloService">
+				<jaxws:inInterceptors>
+					<bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor" />
+					<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+						<constructor-arg>
+							<map>
+								<entry key="action" 			value="UsernameToken"/>
+								<entry key="passwordType" 		value="PasswordText"/>
+								<entry key="passwordCallbackRef">
+									<ref bean="passwordCallbackBean"/>
+								</entry>
+							</map>
+						</constructor-arg>
+					</bean>
+				</jaxws:inInterceptors>
+				
+			</jaxws:endpoint>
 </beans>

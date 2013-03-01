@@ -13,11 +13,11 @@
 			http://cxf.apache.org/core									http://cxf.apache.org/schemas/core.xsd">
             
             <!-- <import resource="classpath:cxf-servlet.xml" />-->
-            	<cxf:bus>
-		<cxf:features>
-			<cxf:logging limit="1024000" />
-		</cxf:features>
-	</cxf:bus>
+    	    <cxf:bus>
+				<cxf:features>
+					<cxf:logging limit="1024000" />
+				</cxf:features>
+			</cxf:bus>
             <bean id="personDao" class="com.alexander.maven.archetypes.domain.ListPersonDaoImpl" />
             
 			<bean id="controller" class="com.alexander.maven.archetypes.controllers.PersonController">

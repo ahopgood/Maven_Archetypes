@@ -17,9 +17,9 @@
 		<p> a new paragraph boyo </p>
 		<p>testing</p>
 		
-		<a href="views/protected-page">Link to a protected page</a>
+		<a href="<c:url value='/views/protected-page'/>">Link to a protected page</a>
 		<br />
-		<a href="views/secured/securepage">A link to a secure page</a>
+		<a href="<c:url value='/views/secured/securepage' />">A link to a secure page</a>
 
 	</body>
 </html>

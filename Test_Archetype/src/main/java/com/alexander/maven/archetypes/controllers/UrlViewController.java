@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/views/*")
+@RequestMapping("/views/")
 public class UrlViewController {
 	
 	//Used to convert page requests to views
@@ -20,6 +20,13 @@ public class UrlViewController {
 		System.out.println("Request found for subfolder "+subfolder+" and page "+page);
 		return subfolder+"/"+page;
 	}
+	
+	@RequestMapping("index.do")
+	public String forward(){
+		System.out.println("Request found for index.do");
+		return "index";
+	}
+	
 	
 	public UrlViewController(){
 		System.out.println("In the url view controller constructor");

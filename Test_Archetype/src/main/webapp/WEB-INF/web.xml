@@ -4,18 +4,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	
-	<display-name>Basic Java 1.6 Webapps</display-name>
-	
-	<welcome-file-list>
-		<welcome-file>/WEB-INF/views/index.jsp</welcome-file>
-	</welcome-file-list>
-
+	<display-name>Basic Spring Security Web App</display-name>
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters --> 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:applicationContext.xml
-			classpath:security.xml
+			classpath:security.xml			
 		</param-value>
 	</context-param>
 
@@ -23,24 +17,22 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+	 
+	<welcome-file-list>
+		<welcome-file>/WEB-INF/views/index.jsp</welcome-file>
+	</welcome-file-list>	
 	<!-- Handles web requests -->
-	
 	<servlet>
-		<servlet-name>springServlet</servlet-name>
+		<servlet-name>spring</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:springServlet.xml</param-value>
-		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>springServlet</servlet-name>
+		<servlet-name>spring</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
+<!-- 	
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -49,5 +41,5 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+-->
 </web-app>

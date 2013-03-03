@@ -17,6 +17,9 @@
 		<p> a new paragraph boyo </p>
 		<p>testing</p>
 		
-		<a href="/WEB-INF/views/protected-page.jsp">Link to a protected page</a>
+		<a href="views/protected-page">Link to a protected page</a>
+		<br />
+		<a href="views/secured/securepage">A link to a secure page</a>
+
 	</body>
 </html>

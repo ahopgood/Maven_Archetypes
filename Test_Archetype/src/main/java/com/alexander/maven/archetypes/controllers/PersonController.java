@@ -1,6 +1,7 @@
 package com.alexander.maven.archetypes.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,7 +14,12 @@ import com.alexander.maven.archetypes.domain.PersonDao;
 public class PersonController {
 
 	protected static final String PERSON_NOT_FOUND = "Person could not be found.";
-
+	
+	@RequestMapping("/view/{page}")
+	public String forward(@PathVariable String page){
+		System.out.println("Request found for page "+page);
+		return page;
+	}
 	
 	@RequestMapping("add")
 	public @ResponseBody String addPerson(@RequestParam String insuranceNumber, 

@@ -9,7 +9,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath:security.xml			
+			/WEB-INF/security.xml			
 		</param-value>
 	</context-param>
 
@@ -27,8 +27,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>spring</servlet-name>
-		<url-pattern>/</url-pattern>
-		<url-pattern>/views/index</url-pattern>
+  		<url-pattern>/spring/*</url-pattern>
 	</servlet-mapping>
 
 	<filter>
@@ -41,6 +40,6 @@
 	</filter-mapping>
 
 	<welcome-file-list>
-		<welcome-file>views/index</welcome-file>
-	</welcome-file-list>	
+		<welcome-file>spring/views/index.htm</welcome-file>
+	</welcome-file-list>
 </web-app>

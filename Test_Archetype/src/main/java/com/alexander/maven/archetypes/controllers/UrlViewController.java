@@ -19,14 +19,7 @@ public class UrlViewController {
 	public String forward(@PathVariable String subfolder, @PathVariable String page){
 		System.out.println("Request found for subfolder "+subfolder+" and page "+page);
 		return subfolder+"/"+page;
-	}
-	
-	@RequestMapping("index.do")
-	public String forward(){
-		System.out.println("Request found for index.do");
-		return "index";
-	}
-	
+	}	
 	
 	public UrlViewController(){
 		System.out.println("In the url view controller constructor");

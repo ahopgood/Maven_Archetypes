@@ -1,5 +1,7 @@
 package com.alexander.maven.archetype;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.hibernate.SessionFactory;
@@ -35,6 +37,9 @@ public class StartUp {
 		}
 		
 		Properties jdbcProps = new Properties();
+		try{
+			jdbcProps.load(new ClassPathResource("src/main/filters/jdbc-filter.properts").getInputStream());
+		} catch (IOException ioe){  }
 		
 		ClassPathResource hibernateConf = new ClassPathResource("hibernate.cfg.xml");
 		SessionFactory session = new Configuration()

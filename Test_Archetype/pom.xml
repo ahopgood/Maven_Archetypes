@@ -71,6 +71,7 @@
 	<filters>
 		<!-- These filtered properties can be used in the specified filtered resources -->
 		<filter>src/main/filters/common-filter.properties</filter>
+		<filter>src/main/filters/jdbc-filter.properties</filter>
 	</filters>
 	<resources>
 		<resource>

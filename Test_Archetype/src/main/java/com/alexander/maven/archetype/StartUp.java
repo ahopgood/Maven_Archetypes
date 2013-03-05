@@ -1,6 +1,11 @@
 package com.alexander.maven.archetype;
 
+import java.util.Properties;
+
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
@@ -29,9 +34,15 @@ public class StartUp {
 			System.out.println("Have the wrong type of bean class "+bean2.getClass().getSimpleName());
 		}
 		
-		Configuration cfg = new Configuration();
+		Properties jdbcProps = new Properties();
+		
 		ClassPathResource hibernateConf = new ClassPathResource("hibernate.cfg.xml");
-		cfg.addResource(hibernateConf.getPath());
+		SessionFactory session = new Configuration()
+			.addResource(hibernateConf.getPath())
+			.buildSessionFactory(new ServiceRegistryBuilder()
+				.applySettings(jdbcProps)
+				.buildServiceRegistry()
+			);
 		
 	}
 }

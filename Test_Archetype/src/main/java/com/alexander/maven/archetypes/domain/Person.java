@@ -5,12 +5,16 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * A domain object for holding the information on a person.
+ * Hibernate requires an empty constructor and bean style setters and getters.
  * @author Alexander
  *
  */
 public class Person {
-
+	
+	private long id;
 	private String nationalInsuranceNumber;
+	
+	public Person(){}
 	
 	public Person(String nationalInsuranceNumber){
 		this.nationalInsuranceNumber = nationalInsuranceNumber;
@@ -23,6 +27,14 @@ public class Person {
 	public void setNationalInsuranceNumber(String nationalInsuranceNumber){
 		this.nationalInsuranceNumber = nationalInsuranceNumber;
 	}
+
+	public void setId(long id){
+		this.id = id;
+	}
+	
+	public long getId(){
+		return this.id;
+	}
 	
 	@Override
 	public boolean equals(Object o){
@@ -34,7 +46,7 @@ public class Person {
 			.append(this.nationalInsuranceNumber, person.nationalInsuranceNumber)
 			.isEquals();
 	}
-	
+
 	@Override
 	public int hashCode(){
 		return new HashCodeBuilder(19,51)

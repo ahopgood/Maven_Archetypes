@@ -3,6 +3,8 @@ package com.alexander.maven.archetypes.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.alexander.maven.archetypes.domain.dao.PersonDao;
+
 public class ListPersonDaoImpl implements PersonDao {
 
 	protected List<Person> persons = new LinkedList<Person>();

@@ -1,10 +1,12 @@
 package com.alexander.maven.archetype;
 
+import org.hibernate.cfg.Configuration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 
 import com.alexander.maven.archetypes.controllers.PersonController;
-import com.alexander.maven.archetypes.domain.PersonDao;
+import com.alexander.maven.archetypes.domain.dao.PersonDao;
 
 public class StartUp {
 
@@ -26,5 +28,10 @@ public class StartUp {
 		} else {
 			System.out.println("Have the wrong type of bean class "+bean2.getClass().getSimpleName());
 		}
+		
+		Configuration cfg = new Configuration();
+		ClassPathResource hibernateConf = new ClassPathResource("hibernate.cfg.xml");
+		cfg.addResource(hibernateConf.getPath());
+		
 	}
 }

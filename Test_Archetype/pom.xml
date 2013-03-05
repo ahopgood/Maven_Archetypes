@@ -60,5 +60,36 @@
   			</configuration>
   		</plugin>
 	</plugins>
+	<!-- Build info and misc resource stuff -->
+	<finalName>${build.name}</finalName>
+
+	<filters>
+		<!-- These filtered properties can be used in the specified filtered resources -->
+		<filter>src/main/filters/common-filter.properties</filter>
+	</filters>
+	<resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+		</resource>
+		<resource>
+			<directory>src/main/nonFilteredResources</directory>
+			<filtering>false</filtering>
+		</resource>
+	</resources>
+
   </build>
+  
+  <profiles>
+  	<profile>
+  		<id>DEV</id>	<!-- The name entered when running "mvn clean package -P DEV" to run a profile -->
+  		<activation>	<!-- Used to specify any conditions needed for the profile to be activated, also used to specify which profile is active by default -->
+  			<activeByDefault>true</activeByDefault>
+  		</activation>
+  		<properties>	<!-- These function like standard pom properties but override if there are duplicates -->
+  			<env>DEV</env>	<!-- can be used to alter the build name -->
+  			<build.name>${env}Test</build.name>
+  		</properties>
+  	</profile>
+  </profiles>
 </project>

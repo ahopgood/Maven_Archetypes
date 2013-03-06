@@ -1,7 +1,17 @@
 package com.alexander.maven.archetypes.domain;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.hibernate.annotations.NaturalId;
 
 /**
  * A domain object for holding the information on a person.
@@ -9,9 +19,17 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * @author Alexander
  *
  */
-public class Person {
+@Entity
+@Table(name="Persons")
+@SuppressWarnings("serial")
+public class Person implements Serializable {
 	
-	private long id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column (name="id", unique=true, nullable=false, updatable=false)
+	private Long id;
+	
+	@Column (name="nationalInsuranceNumber", unique=true, nullable=false, updatable=false)
 	private String nationalInsuranceNumber;
 	
 	public Person(){}
@@ -27,13 +45,13 @@ public class Person {
 	public void setNationalInsuranceNumber(String nationalInsuranceNumber){
 		this.nationalInsuranceNumber = nationalInsuranceNumber;
 	}
-
-	public void setId(long id){
-		this.id = id;
+	
+	public Long getId(){
+		return this.id;
 	}
 	
-	public long getId(){
-		return this.id;
+	public void setId(Long id){
+		this.id = id;
 	}
 	
 	@Override

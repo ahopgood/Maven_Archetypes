@@ -16,6 +16,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
 import com.alexander.maven.archetypes.controllers.PersonController;
+import com.alexander.maven.archetypes.domain.HibernatePersonDao;
 import com.alexander.maven.archetypes.domain.Person;
 import com.alexander.maven.archetypes.domain.dao.PersonDao;
 
@@ -39,7 +40,13 @@ public class StartUp {
 		} else {
 			System.out.println("Have the wrong type of bean class "+bean2.getClass().getSimpleName());
 		}
-		
+
+		PersonDao personDao = context.getBean(HibernatePersonDao.class);
+		System.out.println(personDao);
+		personDao.save(new Person("JK168376A"));
+	}
+	
+	public static void checkHibernate(){
 		Properties jdbcProps = new Properties();
 		try{
 			jdbcProps.load(new BufferedReader(new FileReader("src/main/filters/jdbc-filter.properties")));
@@ -79,6 +86,5 @@ public class StartUp {
 		
 		transaction.commit();
 		session.close();
-
 	}
 }

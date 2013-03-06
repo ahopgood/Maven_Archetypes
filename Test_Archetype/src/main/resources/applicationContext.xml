@@ -14,4 +14,38 @@
 			<bean id="controller" class="com.alexander.maven.archetypes.controllers.PersonController">
            		<property name="personDao" ref="personDao"/>
 			</bean>
+			
+			<tx:annotation-driven />
+			
+			<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+				<property name="driverClass" 				value="com.mysql.jdbc.Driver" />
+				<property name="jdbcUrl" 					value="jdbc:mysql://localhost:3306/Test?createDatabaseIfNotExist=true" />
+				<property name="user" 						value="root" />
+				<property name="password" 					value="admin" />
+				<property name="maxPoolSize" 				value="20" />
+				<property name="initialPoolSize" 			value="5" />
+				<property name="preferredTestQuery" 		value="select 1;" />
+				<property name="maxIdleTime" 				value="1800" />
+				<property name="maxStatementsPerConnection"	value="10" />
+												
+			</bean>
+			
+			<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+				<property name="dataSource" 	ref="dataSource" />
+				<property name="configLocation"	value="classpath:hibernate.cfg.xml"/>
+				<property name="hibernateProperties">
+					<value>
+						hibernate.dialect		= org.hibernate.dialect.MySQLDialect
+						hibernate.hbm2ddl.auto	= update 
+					</value>
+				</property>
+			</bean>
+			
+			<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			
+			<bean id="hibernatePersonDao" class="com.alexander.maven.archetypes.domain.HibernatePersonDao">
+				<property name="sessionFactory" ref="sessionFactory"/>
+			</bean>
 </beans>

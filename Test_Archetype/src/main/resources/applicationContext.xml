@@ -30,7 +30,7 @@
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	    <property name="locations">
 	    	<list>
-	    		<value>${local.config.path}/external.properties</value>
+	    		<value>classpath:external.properties</value>
 	    	</list>
 	    </property>
 	</bean>
@@ -38,14 +38,14 @@
 			<tx:annotation-driven />
 			
 			<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-				<property name="driverClass" 				value="com.mysql.jdbc.Driver" />
-				<property name="jdbcUrl" 					value="jdbc:mysql://localhost:3306/Test?createDatabaseIfNotExist=true" />
-				<property name="user" 						value="root" />
-				<property name="password" 					value="admin" />
-				<property name="maxPoolSize" 				value="20" />
-				<property name="initialPoolSize" 			value="5" />
+				<property name="driverClass" 				value="${seed.db.driver}" />
+				<property name="jdbcUrl" 					value="${seed.db.url}" />
+				<property name="user" 						value="${seed.db.username}" />
+				<property name="password" 					value="${seed.db.password}" />
+				<property name="maxPoolSize" 				value="${seed.db.pool.maxpoolsize}" />
+				<property name="initialPoolSize" 			value="${seed.db.pool.initialpoolsize}" />
 				<property name="preferredTestQuery" 		value="select 1;" />
-				<property name="maxIdleTime" 				value="1800" />
+				<property name="maxIdleTime" 				value="${seed.db.pool.maxidletime}" />
 				<property name="maxStatementsPerConnection"	value="10" />
 												
 			</bean>

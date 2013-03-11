@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alexander.maven.archetypes.domain.Person;
-import com.alexander.maven.archetypes.domain.PersonDao;
+import com.alexander.maven.archetypes.domain.dao.PersonDao;
 
 @Controller
 @RequestMapping("/persons/*")
@@ -27,7 +27,7 @@ public class PersonController {
 			@RequestParam String secondName){
 		System.out.println("In the addPerson call");
 		Person person = new Person(insuranceNumber, firstName, secondName);
-		return ""+this.personDao.addPerson(person);
+		return ""+this.personDao.save(person);//, "First", "Surname");
 	}
 	
 	@RequestMapping("get")

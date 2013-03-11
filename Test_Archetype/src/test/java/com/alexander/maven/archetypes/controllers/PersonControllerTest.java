@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.alexander.maven.archetypes.domain.ListPersonDaoImpl;
 import com.alexander.maven.archetypes.domain.Person;
-import com.alexander.maven.archetypes.domain.PersonDao;
+import com.alexander.maven.archetypes.domain.dao.PersonDao;
 
 public class PersonControllerTest {
 
@@ -34,7 +34,7 @@ public class PersonControllerTest {
 
 	@Test
 	public void testGetPerson() {
-		personDao.addPerson(person);
+		personDao.save(person);
 		String expected	= "Person :"+person.getLastName()+", "+person.getFirstName()+" #"+person.getNationalInsuranceNumber();
 		String actual 	= controller.getPerson(INSURANCE_NO);
 		assertEquals("We should have a person's information returned in a string!", expected, actual);

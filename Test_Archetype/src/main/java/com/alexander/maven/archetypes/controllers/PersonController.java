@@ -1,6 +1,6 @@
 package com.alexander.maven.archetypes.controllers;
 
-import com.alexander.maven.archetypes.domain.dao.PersonDao;
+import com.alexander.maven.archetypes.dao.PersonDao;
 
 public class PersonController {
 

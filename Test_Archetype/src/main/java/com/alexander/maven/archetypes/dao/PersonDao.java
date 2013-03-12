@@ -1,4 +1,4 @@
-package com.alexander.maven.archetypes.domain.dao;
+package com.alexander.maven.archetypes.dao;
 
 import com.alexander.maven.archetypes.domain.Person;
 

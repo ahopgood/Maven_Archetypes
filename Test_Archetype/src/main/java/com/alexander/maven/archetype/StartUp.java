@@ -16,9 +16,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
 import com.alexander.maven.archetypes.controllers.PersonController;
-import com.alexander.maven.archetypes.domain.HibernatePersonDao;
+import com.alexander.maven.archetypes.dao.PersonDao;
+import com.alexander.maven.archetypes.dao.hibernate.HibernatePersonDao;
 import com.alexander.maven.archetypes.domain.Person;
-import com.alexander.maven.archetypes.domain.dao.PersonDao;
 
 public class StartUp {
 

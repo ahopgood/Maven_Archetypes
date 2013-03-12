@@ -1,4 +1,4 @@
-package com.alexander.maven.archetypes.domain;
+package com.alexander.maven.archetypes.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -8,6 +8,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.alexander.maven.archetypes.dao.ListPersonDaoImpl;
+import com.alexander.maven.archetypes.domain.Person;
 
 public class ListPersonDaoImplTest {
 
@@ -28,7 +31,7 @@ public class ListPersonDaoImplTest {
 		assertTrue(personDao.persons.isEmpty());
 		Person person1 = new Person(NAT_INS_NUMBER);
 		
-		assertTrue(personDao.save(person1));
+		assertTrue(personDao.save(person1) > 0);
 		assertTrue(!personDao.persons.isEmpty());
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());
 	}
@@ -38,18 +41,18 @@ public class ListPersonDaoImplTest {
 		assertTrue(personDao.persons.isEmpty());
 		Person person1 = new Person(NAT_INS_NUMBER);
 		
-		assertTrue(personDao.save(person1));
+		assertTrue(personDao.save(person1) > 0);
 		assertTrue(!personDao.persons.isEmpty());
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());
 		
 		//Same object
-		assertTrue(!personDao.save(person1));
+		assertTrue(personDao.save(person1) < 0);
 		assertTrue(!personDao.persons.isEmpty());
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());		
 		
 		//New object same national insurance number
 		Person person2 = new Person(NAT_INS_NUMBER);
-		assertTrue(!personDao.save(person2));
+		assertTrue(personDao.save(person2) < 0);
 		assertTrue(!personDao.persons.isEmpty());
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());
 	}
@@ -59,7 +62,7 @@ public class ListPersonDaoImplTest {
 		assertTrue(personDao.persons.isEmpty());
 		Person person1 = new Person(null);
 		
-		assertTrue(! personDao.save(person1));
+		assertTrue(personDao.save(person1) < 0);
 		assertTrue(personDao.persons.isEmpty());
 		assertEquals("We should have no elements in the list.",0,personDao.persons.size());
 	}
@@ -67,7 +70,7 @@ public class ListPersonDaoImplTest {
 	@Test public void 
 	testAddPerson_given_null_person() {
 		assertTrue(personDao.persons.isEmpty());
-		assertTrue(! personDao.save(null));
+		assertTrue(personDao.save(null) < 0);
 		assertTrue(personDao.persons.isEmpty());
 		assertEquals("We should have no elements in the list.",0,personDao.persons.size());
 	}
@@ -84,14 +87,14 @@ public class ListPersonDaoImplTest {
 		assertNull(differentFound);
 		
 		//find person that is in collection
-		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)));
+		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)) > 0);
 		Person found = personDao.findPersonByNationalInsuranceNumber(NAT_INS_NUMBER);
 		assertNotNull(found);
 	}
 	
 	@Test public void 
 	testDelete(){
-		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)));
+		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)) > 0);
 		assertEquals(false, personDao.persons.isEmpty());
 		personDao.delete(new Person(NAT_INS_NUMBER));
 		assertEquals(true, personDao.persons.isEmpty());
@@ -99,7 +102,7 @@ public class ListPersonDaoImplTest {
 	
 	@Test public void 
 	testDelete_given_null(){
-		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)));
+		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)) > 0);
 		assertEquals(false, personDao.persons.isEmpty());
 		personDao.delete(null);
 		assertEquals(false, personDao.persons.isEmpty());
@@ -107,7 +110,7 @@ public class ListPersonDaoImplTest {
 	
 	@Test public void 
 	testDelete_given_nullPerson(){
-		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)));
+		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)) > 0);
 		assertEquals(false, personDao.persons.isEmpty());
 		personDao.delete(new Person(null));
 		assertEquals(false, personDao.persons.isEmpty());
@@ -115,7 +118,7 @@ public class ListPersonDaoImplTest {
 	
 	@Test public void 
 	testDelete_given_PersonNotInCollection(){
-		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)));
+		assertTrue(personDao.save(new Person(NAT_INS_NUMBER)) > 0);
 		assertEquals(false, personDao.persons.isEmpty());
 		personDao.delete(new Person("random_text"));
 		assertEquals(false, personDao.persons.isEmpty());

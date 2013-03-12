@@ -1,11 +1,14 @@
-package com.alexander.maven.archetypes.domain;
+package com.alexander.maven.archetypes.dao.hibernate;
 
-import java.util.List;
-
-import com.alexander.maven.archetypes.domain.dao.PersonDao;
+import com.alexander.maven.archetypes.dao.PersonDao;
+import com.alexander.maven.archetypes.domain.Person;
 
 public class HibernatePersonDao extends AbstractHibernateDao<Person> implements PersonDao {
 
+	public HibernatePersonDao(){
+		super(Person.class);
+	}
+	
 	@Override
 	public Person findPersonByNationalInsuranceNumber(String insuranceNumber) {
 		// TODO Auto-generated method stub

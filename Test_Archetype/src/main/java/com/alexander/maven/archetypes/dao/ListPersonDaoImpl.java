@@ -1,9 +1,9 @@
-package com.alexander.maven.archetypes.domain;
+package com.alexander.maven.archetypes.dao;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import com.alexander.maven.archetypes.domain.dao.PersonDao;
+import com.alexander.maven.archetypes.domain.Person;
 
 public class ListPersonDaoImpl implements PersonDao {
 
@@ -35,13 +35,14 @@ public class ListPersonDaoImpl implements PersonDao {
 	}
 
 	@Override
-	public boolean save(Person person) {
-		if (person == null) return false;
-		if (person.getNationalInsuranceNumber() == null) return false;
+	public long save(Person person) {
+		if (person == null) return -1;
+		if (person.getNationalInsuranceNumber() == null) return -1;
 		if (persons.contains(person)){
-			return false;
+			return -1;
 		} else {
-			return persons.add(person);
+			persons.add(person);
+			return persons.size();
 		}
 	}
 

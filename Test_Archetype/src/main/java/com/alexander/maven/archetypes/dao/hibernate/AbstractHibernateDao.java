@@ -35,26 +35,25 @@ public abstract class AbstractHibernateDao<T> implements BaseDao<T> {
 	@Override
 	public T get(long id) {
 		return (T)getCurrentSession().get(entityClass, id);
-//		throw new UnsupportedOperationException("Get not implemented yet");
-//		return null;
 	}
 
 	@Override
 	public List<T> getAll() {
-		throw new UnsupportedOperationException("get All not implemented yet");
-//		return null;
+		return (List<T>)getCurrentSession()
+				.createCriteria(entityClass).list();
 	}
 
 	@Override
 	public long save(T t) {
 		return (Long)getCurrentSession().save(t);
-//		throw new UnsupportedOperationException("Save not implemented yet");
-//		return false;
 	}
 
 	@Override
 	public void delete(T t) {
-		throw new UnsupportedOperationException("Delete not implemented yet");		
+		if (t == null){
+			throw new IllegalArgumentException("Cannot delete a null entity.");
+		}
+		getCurrentSession().delete(t);		
 	}
 
 	public Session getCurrentSession(){

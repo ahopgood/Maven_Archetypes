@@ -2,7 +2,10 @@ package com.alexander.maven.archetypes.dao.hibernate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -71,13 +74,52 @@ public class AbstractHibernateDaoTest {
 		assertEquals(testEntity1, this.hibernateDao.get(id));
 	}
 
-	@Test (expected = NullPointerException.class)
+	@Test (expected = IllegalArgumentException.class)
 	public void testSave_givenNullEntity() {
 		this.hibernateDao.save(null);
 	}
 	
 	@Test 
-	public void testSave_given() {
-		this.hibernateDao.save(null);
+	public void testGetAll_givenEmpty() {
+		List<TestEntity> result = this.hibernateDao.getAll();
+		assertEquals(true, result.isEmpty());
+	}
+	
+	@Test 
+	public void testGetAll_givenEntitiesAdded() {
+		this.hibernateDao.save(testEntity1);
+		this.hibernateDao.save(testEntity2);
+		this.hibernateDao.save(testEntity3);
+		
+		Set<TestEntity> expected = new HashSet<TestEntity>();
+		expected.add(testEntity1);
+		expected.add(testEntity2);
+		expected.add(testEntity3);
+		
+		List<TestEntity> result = this.hibernateDao.getAll();
+		assertEquals(false, result.isEmpty());
+		assertEquals(3, result.size());
+		
+		Set<TestEntity> actual = new HashSet<TestEntity>();
+		actual.addAll(result);
+		
+		assertEquals("The contents should match!",expected, actual);
+	}
+	
+	@Test
+	public void testDelete(){
+		Long id = this.hibernateDao.save(testEntity1);
+		this.hibernateDao.delete(testEntity1);
+		assertEquals(null, this.hibernateDao.get(id));
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testDelete_givenNullEntity(){
+		this.hibernateDao.delete(null);
+	}
+	
+	@Test
+	public void testDelete_givenNonSavedEntity(){
+		this.hibernateDao.delete(testEntity1);
 	}
 }

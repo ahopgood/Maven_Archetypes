@@ -79,7 +79,15 @@
 	</resources>
 
   </build>
-  
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+		</plugins>
+	</reporting>  
   <profiles>
   	<profile>
   		<id>DEV</id>	<!-- The name entered when running "mvn clean package -P DEV" to run a profile -->

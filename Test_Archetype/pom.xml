@@ -4,6 +4,7 @@
 	<artifactId>Test_Archetype</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+
 	<!-- To get the maven archetype plugin working you will need to point eclipse to the location of maven (not the embedded one) -->
 	<dependencies>
   		<dependency>
@@ -27,19 +28,10 @@
   <properties>
   	<spring.version>3.0.5.RELEASE</spring.version>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
   </properties>
   
   <build>
-   <pluginManagement>
-      <!-- To define the plugin version in your parent POM -->
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>1.8</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
   		<plugin>
   			<groupId>org.apache.maven.plugins</groupId>
@@ -69,12 +61,44 @@
   				</configuration>
   			</configuration>
   		</plugin>
-  		<!-- To use the plugin goals in your POM or parent POM -->
-  		<plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>1.8</version>
-  		</plugin>
+		<plugin>
+    		<groupId>com.mycila</groupId>
+   			<artifactId>license-maven-plugin</artifactId>
+    		<version>2.11</version>
+    		<configuration>
+        		<header>src/main/resources/header.txt</header>
+        		<properties>
+            		<owner>Alexander Hopgood</owner>
+            		<email>alex.hopgood@gmail.com</email>
+                    <year>${maven.build.timestamp}</year>
+        		</properties>
+        		<quiet>false</quiet>
+                <failIfMissing>true</failIfMissing>
+                <aggregate>false</aggregate>
+        		<includes>
+        			<include>src/main/java/**/*.java</include>
+					<include>src/test/java/**/*.java</include>
+        		</includes>
+				<excludes>
+					<exclude>target/**</exclude>
+				</excludes>      		
+        		<useDefaultExcludes>true</useDefaultExcludes>
+        		<mapping>
+        			<java>JAVADOC_STYLE</java>
+        		</mapping>
+ 				<encoding>UTF-8</encoding>
+				<headerDefinitions>
+					<headerDefinition>src/main/resources/javadoc_header_style.xml</headerDefinition>
+				</headerDefinitions>
+       		</configuration>
+    		<executions>
+        		<execution>
+        			<goals>
+        				<goal>check</goal>
+					</goals>
+				</execution>
+    		</executions>
+		</plugin>
 	</plugins>
 	<!-- Build info and misc resource stuff -->
 	<finalName>${build.name}</finalName>
@@ -102,13 +126,6 @@
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>2.7</version>
 			</plugin>
-
-		  <!-- To use the report goals in your POM or parent POM -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <version>1.8</version>
-      </plugin>
 		</plugins>
 	</reporting>  
   <profiles>

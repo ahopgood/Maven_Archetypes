@@ -97,6 +97,7 @@
   		<maven.findbugs.plugin.version>2.5.2</maven.findbugs.plugin.version>
   		<maven.pmd.plugin.version>2.7.1</maven.pmd.plugin.version>
   		<maven.surefire.report.plugin.version>2.12.4</maven.surefire.report.plugin.version>
+  		<maven.checkstyle.plugin.version>2.9.1</maven.checkstyle.plugin.version>
   		<!-- Cargo properties -->
   		<tomcat.containerId>tomcat6x</tomcat.containerId>
   		<hostname>localhost</hostname>
@@ -235,6 +236,28 @@
   	<!-- Plugin configuration specified here for reporting -->
 	<reporting>
 		<plugins>
+			<!-- Project Info Report on the left side of the site -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>${maven.reports.plugin.version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<report>project-team</report>
+							<report>issue-tracking</report>
+							<!-- <report>dependencies</report> --> <!-- Takes a bit of time -->
+							<report>scm</report>
+							<report>plugins</report>
+							<report>summary</report>
+							<report>cim</report>
+							<report>dependency-convergence</report>
+							<report>distribution-management</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>		
 			<!-- Test coverage reports -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -248,21 +271,21 @@
 				</configuration>
 			</plugin>
 			<!-- Plugin for building reports on dependecies that have security vulnerabilities -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.owasp</groupId> -->
-<!-- 				<artifactId>dependency-check-maven</artifactId> -->
-<!-- 				<version>${maven.dependency.check.plugin.version}</version> -->
-<!-- 				<configuration> -->
-<!-- 					<aggregate>true</aggregate> -->
-<!-- 				</configuration> -->
-<!-- 				<reportSets> -->
-<!-- 					<reportSet> -->
-<!-- 						<reports> -->
-<!-- 							<report>check</report> -->
-<!-- 						</reports> -->
-<!-- 					</reportSet> -->
-<!-- 				</reportSets> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>${maven.dependency.check.plugin.version}</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>check</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
 			<!-- Change log report (works with SCM tag details) -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -299,6 +322,15 @@
 						</reports>
 					</reportSet>
 				</reportSets>
+			</plugin>
+			<!-- Code styling checks report -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${maven.checkstyle.plugin.version}</version>
+				<configuration>
+					<skip>true</skip> <!-- If true, then its not part of site generation -->
+				</configuration>
 			</plugin>
 
 		</plugins>

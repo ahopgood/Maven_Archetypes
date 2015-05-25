@@ -277,14 +277,14 @@
 				</configuration>
 			</plugin>
 			<!-- Potential logical errors and bugs report -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.codehaus.mojo</groupId> -->
-<!-- 				<artifactId>findbugs-maven-plugin</artifactId> -->
-<!-- 				<version>${maven.findbugs.plugin.version}</version> -->
-<!-- 				<configuration> -->
-<!-- 					<targetJDK>${java.version}</targetJDK> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin>			 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>${maven.findbugs.plugin.version}</version>
+				<configuration>
+					<targetJDK>${java.version}</targetJDK>
+				</configuration>
+			</plugin>			
 		</plugins>
 	</reporting>
 	  

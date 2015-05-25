@@ -5,6 +5,58 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+	<url>http://some/location/${project.version}/</url>
+
+	<description>
+		A description of the project this pom documents.
+	</description>
+
+	<issueManagement>
+		<system></system><!-- Jira, Mantis etc -->
+		<url></url>
+	</issueManagement>
+
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://hudson.masabi.com/</url>
+		<notifiers>
+			<notifier>
+				<address>alex.hopgood+${artifactId}-issues@gmail.com</address>
+				<type>mail</type>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+
+	<developers>
+		<developer>
+			<id>alexhopgood</id>
+			<name>Alex Hopgood</name>
+			<email>alex.hopgood@gmail.com</email>
+			<roles>
+				<role>Server Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<!-- Used for publishing artifacts -->
+	<distributionManagement>
+		<repository> <!-- Release repo -->
+			<id>${artifactId}-repo</id>
+			<name>Releases Maven Artifactory Repository</name>
+			<url>http://artifactory.something.com/artifactory/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Snapshot Maven Repository</name>
+			<url>http://artifactory.masabi.com/artifactory/libs-snapshot-local</url>
+		</snapshotRepository>
+		<site>
+			<id>project-server-site</id>
+			<url>scp://domain/apache2/path/${project.version}/</url>
+		</site>
+	</distributionManagement>
+
+
 	<!-- To get the maven archetype plugin working you will need to point eclipse to the location of maven (not the embedded one) -->
 	<dependencies>
   		<dependency>
@@ -25,100 +77,116 @@
 		</dependency>
 	</dependencies>
   
-  <properties>
-  	<spring.version>3.0.5.RELEASE</spring.version>
-  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  	<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
-  </properties>
+  	<properties>
+  		<spring.version>3.0.5.RELEASE</spring.version>
+  		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  		<java.version>1.6</java.version>
+  		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+  		<maven.site.plugin.version>3.3</maven.site.plugin.version>
+  		<maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
+	</properties>
   
-  <build>
-    <plugins>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-compiler-plugin</artifactId>
-  			<version>2.5.1</version>
-  			<configuration>
-  				<source>1.6</source>
-  				<target>1.6</target>
-  			</configuration>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.codehaus.cargo</groupId>
-  			<artifactId>cargo-maven2-plugin</artifactId>
-  			<version>1.2.4</version>
-  			<configuration>
-  				<container>
-	  				<containerId>tomcat6x</containerId>
-	  				<type>remote</type>
-  				</container>
+	<build>
+    	<plugins>
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-compiler-plugin</artifactId>
+  				<version>${maven.compiler.plugin.version}</version>
   				<configuration>
-  					<type>runtime</type>
-  					<properties>
-  						<cargo.remote.username>${servlet.container.username}</cargo.remote.username>
-	  					<cargo.remote.password>${servlet.container.password}</cargo.remote.password>
-	  					<cargo.tomcat.manager.url>${servlet.container.manager.url}</cargo.tomcat.manager.url>
-  					</properties>
+  					<source>${java.version}</source>
+  					<target>${java.version}</target>
   				</configuration>
-  			</configuration>
-  		</plugin>
-		<plugin>
-    		<groupId>com.mycila</groupId>
-   			<artifactId>license-maven-plugin</artifactId>
-    		<version>2.11</version>
-    		<configuration>
-        		<header>src/main/resources/header.txt</header>
-        		<properties>
-            		<owner>Alexander Hopgood</owner>
-            		<email>alex.hopgood@gmail.com</email>
-                    <year>${maven.build.timestamp}</year>
-        		</properties>
-        		<quiet>false</quiet>
-                <failIfMissing>true</failIfMissing>
-                <aggregate>false</aggregate>
-        		<includes>
-        			<include>src/main/java/**/*.java</include>
-					<include>src/test/java/**/*.java</include>
-        		</includes>
-				<excludes>
-					<exclude>target/**</exclude>
-				</excludes>      		
-        		<useDefaultExcludes>true</useDefaultExcludes>
-        		<mapping>
-        			<java>JAVADOC_STYLE</java>
-        		</mapping>
- 				<encoding>UTF-8</encoding>
-				<headerDefinitions>
-					<headerDefinition>src/main/resources/javadoc_header_style.xml</headerDefinition>
-				</headerDefinitions>
-       		</configuration>
-    		<executions>
-        		<execution>
-        			<goals>
-        				<goal>check</goal>
-					</goals>
-				</execution>
-    		</executions>
-		</plugin>
-	</plugins>
-	<!-- Build info and misc resource stuff -->
-	<finalName>${build.name}</finalName>
+  			</plugin>
+  			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>${maven.site.plugin.version}</version>
+				<dependencies>
+				<!-- add support for ssh/scp -->
+<!-- 					<dependency> -->
+<!-- 						<groupId>org.apache.maven.wagon</groupId> -->
+<!-- 						<artifactId>wagon-ssh</artifactId> -->
+<!-- 						<version>1.0</version> -->
+<!-- 					</dependency> -->
+				</dependencies>
+			</plugin>
+  			<plugin>
+  				<groupId>org.codehaus.cargo</groupId>
+  				<artifactId>cargo-maven2-plugin</artifactId>
+  				<version>1.2.4</version>
+  				<configuration>
+  					<container>
+	  					<containerId>tomcat6x</containerId>
+	  					<type>remote</type>
+  					</container>
+  					<configuration>
+  						<type>runtime</type>
+  						<properties>
+  							<cargo.remote.username>${servlet.container.username}</cargo.remote.username>
+	  						<cargo.remote.password>${servlet.container.password}</cargo.remote.password>
+	  						<cargo.tomcat.manager.url>${servlet.container.manager.url}</cargo.tomcat.manager.url>
+  						</properties>
+  					</configuration>
+  				</configuration>
+  			</plugin>
+			<plugin>
+    			<groupId>com.mycila</groupId>
+   				<artifactId>license-maven-plugin</artifactId>
+    			<version>2.11</version>
+    			<configuration>
+        			<header>src/main/resources/header.txt</header>
+        			<properties>
+            			<owner>Alexander Hopgood</owner>
+            			<email>alex.hopgood@gmail.com</email>
+                    	<year>${maven.build.timestamp}</year>
+        			</properties>
+        			<quiet>false</quiet>
+                	<failIfMissing>true</failIfMissing>
+                	<aggregate>false</aggregate>
+        			<includes>
+        				<include>src/main/java/**/*.java</include>
+						<include>src/test/java/**/*.java</include>
+        			</includes>
+					<excludes>
+						<exclude>target/**</exclude>
+					</excludes>      		
+        			<useDefaultExcludes>true</useDefaultExcludes>
+        			<mapping>
+        				<java>JAVADOC_STYLE</java>
+        			</mapping>
+ 					<encoding>UTF-8</encoding>
+					<headerDefinitions>
+						<headerDefinition>src/main/resources/javadoc_header_style.xml</headerDefinition>
+					</headerDefinitions>
+       			</configuration>
+    			<executions>
+        			<execution>
+        				<goals>
+        					<goal>check</goal>
+						</goals>
+					</execution>
+    			</executions>
+			</plugin>
+		</plugins>
+		<!-- Build info and misc resource stuff -->
+		<finalName>${build.name}</finalName>
 
-	<filters>
-		<!-- These filtered properties can be used in the specified filtered resources -->
-		<filter>src/main/filters/common-filter.properties</filter>
-	</filters>
-	<resources>
-		<resource>
-			<directory>src/main/resources</directory>
-			<filtering>true</filtering>
-		</resource>
-		<resource>
-			<directory>src/main/nonFilteredResources</directory>
-			<filtering>false</filtering>
-		</resource>
-	</resources>
-
-  </build>
+		<filters>
+			<!-- These filtered properties can be used in the specified filtered resources -->
+			<filter>src/main/filters/common-filter.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/nonFilteredResources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+	</build>
+  
 	<reporting>
 		<plugins>
 			<plugin>

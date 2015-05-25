@@ -84,6 +84,14 @@
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
   		<maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
+  		
+  		<!-- Cargo properties -->
+  		<tomcat.containerId>tomcat6x</tomcat.containerId>
+  		<hostname>localhost</hostname>
+  		<port>8080</port>
+  		<servlet.container.username>robomanager</servlet.container.username>
+  		<servlet.container.password>robomanager</servlet.container.password>
+  		<cargo.tomcat.manager.url>http://${hostname}:${port}/manager/html</cargo.tomcat.manager.url>
 	</properties>
   
 	<build>
@@ -102,7 +110,7 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>${maven.site.plugin.version}</version>
 				<dependencies>
-				<!-- add support for ssh/scp -->
+				<!-- add support for ssh/scp transfer, e.g. to store the results on a file server in a similar way to storing wars anf jars on a repository -->
 <!-- 					<dependency> -->
 <!-- 						<groupId>org.apache.maven.wagon</groupId> -->
 <!-- 						<artifactId>wagon-ssh</artifactId> -->
@@ -116,12 +124,14 @@
   				<version>1.2.4</version>
   				<configuration>
   					<container>
-	  					<containerId>tomcat6x</containerId>
+	  					<containerId>${tomcat.containerId}</containerId>
 	  					<type>remote</type>
   					</container>
   					<configuration>
   						<type>runtime</type>
   						<properties>
+							<cargo.hostname>${hostname}</cargo.hostname>
+							<cargo.servlet.port>${port}</cargo.servlet.port>
   							<cargo.remote.username>${servlet.container.username}</cargo.remote.username>
 	  						<cargo.remote.password>${servlet.container.password}</cargo.remote.password>
 	  						<cargo.tomcat.manager.url>${servlet.container.manager.url}</cargo.tomcat.manager.url>

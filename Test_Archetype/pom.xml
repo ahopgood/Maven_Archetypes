@@ -267,15 +267,15 @@
 				<artifactId>maven-changelog-plugin</artifactId>
 				<version>${maven.changelog.plugin.version}</version>
 			</plugin>
-			<!-- Automatic code analysis reports (semantic errors & potential bugs) -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-pmd-plugin</artifactId> -->
-<!-- 				<version>${maven.pmd.plugin.version}</version> -->
-<!-- 				<configuration> -->
-<!-- 					<targetjdk>${java.version}</targetjdk> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<!-- PMD automatic code analysis report (common programming flaws, semantic errors & potential bugs) -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven.pmd.plugin.version}</version>
+				<configuration>
+					<targetjdk>${java.version}</targetjdk>
+				</configuration>
+			</plugin>
 			<!-- Potential logical errors and bugs report -->
 <!-- 			<plugin> -->
 <!-- 				<groupId>org.codehaus.mojo</groupId> -->

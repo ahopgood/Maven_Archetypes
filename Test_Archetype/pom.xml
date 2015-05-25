@@ -88,6 +88,7 @@
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>1.6</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+  		<!-- Maven plugin versions -->
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
   		<maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
@@ -95,6 +96,7 @@
   		<maven.changelog.plugin.version>2.2</maven.changelog.plugin.version>
   		<maven.findbugs.plugin.version>2.5.2</maven.findbugs.plugin.version>
   		<maven.pmd.plugin.version>2.7.1</maven.pmd.plugin.version>
+  		<maven.surefire.report.plugin.version>2.12.4</maven.surefire.report.plugin.version>
   		<!-- Cargo properties -->
   		<tomcat.containerId>tomcat6x</tomcat.containerId>
   		<hostname>localhost</hostname>
@@ -284,7 +286,21 @@
 				<configuration>
 					<targetJDK>${java.version}</targetJDK>
 				</configuration>
-			</plugin>			
+			</plugin>
+			<!-- Surefire report as part of the site generation -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${maven.surefire.report.plugin.version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report-only</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+
 		</plugins>
 	</reporting>
 	  

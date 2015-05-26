@@ -94,7 +94,7 @@
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
   		<maven.dependency.check.plugin.version>1.2.5</maven.dependency.check.plugin.version>
   		<maven.changelog.plugin.version>2.2</maven.changelog.plugin.version>
-  		<maven.findbugs.plugin.version>2.5.2</maven.findbugs.plugin.version>
+  		<maven.findbugs.plugin.version>3.0.1</maven.findbugs.plugin.version>
   		<maven.pmd.plugin.version>2.7.1</maven.pmd.plugin.version>
   		<maven.surefire.report.plugin.version>2.12.4</maven.surefire.report.plugin.version>
   		<maven.checkstyle.plugin.version>2.9.1</maven.checkstyle.plugin.version>
@@ -271,21 +271,21 @@
 				</configuration>
 			</plugin>
 			<!-- Plugin for building reports on dependecies that have security vulnerabilities -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.owasp</groupId> -->
-<!-- 				<artifactId>dependency-check-maven</artifactId> -->
-<!-- 				<version>${maven.dependency.check.plugin.version}</version> -->
-<!-- 				<configuration> -->
-<!-- 					<aggregate>true</aggregate> -->
-<!-- 				</configuration> -->
-<!-- 				<reportSets> -->
-<!-- 					<reportSet> -->
-<!-- 						<reports> -->
-<!-- 							<report>check</report> -->
-<!-- 						</reports> -->
-<!-- 					</reportSet> -->
-<!-- 				</reportSets> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>${maven.dependency.check.plugin.version}</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>check</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
 			<!-- Change log report (works with SCM tag details) -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -293,45 +293,47 @@
 				<version>${maven.changelog.plugin.version}</version>
 			</plugin>
 			<!-- PMD automatic code analysis report (common programming flaws, semantic errors & potential bugs) -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-pmd-plugin</artifactId> -->
-<!-- 				<version>${maven.pmd.plugin.version}</version> -->
-<!-- 				<configuration> -->
-<!-- 					<targetjdk>${java.version}</targetjdk> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>${maven.pmd.plugin.version}</version>
+				<configuration>
+					<targetjdk>${java.version}</targetjdk>
+				</configuration>
+			</plugin>
 			<!-- Potential logical errors and bugs report -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.codehaus.mojo</groupId> -->
-<!-- 				<artifactId>findbugs-maven-plugin</artifactId> -->
-<!-- 				<version>${maven.findbugs.plugin.version}</version> -->
-<!-- 				<configuration> -->
-<!-- 					<targetJDK>${java.version}</targetJDK> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>${maven.findbugs.plugin.version}</version>
+				<!-- find bugs 2.x.x is for pre java 8, 3.x.x is for java 8 and newer -->
+				<configuration>
+					<targetJDK>${java.version}</targetJDK>
+				</configuration>
+			</plugin>
 			<!-- Surefire report as part of the site generation -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-surefire-report-plugin</artifactId> -->
-<!-- 				<version>${maven.surefire.report.plugin.version}</version> -->
-<!-- 				<reportSets> -->
-<!-- 					<reportSet> -->
-<!-- 						<reports> -->
-<!-- 							<report>report-only</report> -->
-<!-- 						</reports> -->
-<!-- 					</reportSet> -->
-<!-- 				</reportSets> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>${maven.surefire.report.plugin.version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>report-only</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
 			<!-- Code styling checks report -->
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-checkstyle-plugin</artifactId> -->
-<!-- 				<version>${maven.checkstyle.plugin.version}</version> -->
-<!-- 				<configuration> -->
-<!-- 					<skip>true</skip> If true, then its not part of site generation -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${maven.checkstyle.plugin.version}</version>
+				<configuration>
+					<skip>false</skip> 
+					<!-- If true, then its not part of site generation -->
+				</configuration>
+			</plugin>
 
 		</plugins>
 	</reporting>

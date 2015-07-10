@@ -98,13 +98,14 @@
   		<maven.pmd.plugin.version>2.7.1</maven.pmd.plugin.version>
   		<maven.surefire.report.plugin.version>2.12.4</maven.surefire.report.plugin.version>
   		<maven.checkstyle.plugin.version>2.9.1</maven.checkstyle.plugin.version>
+  		<maven.enforcer.plugin.version>1.4</maven.enforcer.plugin.version>
   		<!-- Cargo properties -->
-  		<tomcat.containerId>tomcat6x</tomcat.containerId>
+  		<tomcat.containerId>tomcat7x</tomcat.containerId> <!-- tomcat6x -->
   		<hostname>localhost</hostname>
-  		<port>8080</port>
+  		<port>8081</port>
   		<servlet.container.username>robomanager</servlet.container.username>
   		<servlet.container.password>robomanager</servlet.container.password>
-  		<cargo.tomcat.manager.url>http://${hostname}:${port}/manager/html</cargo.tomcat.manager.url>
+  		<cargo.tomcat.manager.url>http://${hostname}:${port}/manager/text</cargo.tomcat.manager.url> <!-- /manager/ for tomcat6 -->
 	</properties>
   
 	<build>
@@ -212,7 +213,27 @@
 					</check>
 				</configuration>
 			</plugin>
-			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>${maven.enforcer.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>enforce-no-snapshots</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireReleaseDeps>
+                  					<message>No Snapshots Allowed!</message>
+                				</requireReleaseDeps>
+							</rules>
+							<fail>true</fail>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 		<!-- Build info and misc resource stuff -->
 		<finalName>${build.name}</finalName>

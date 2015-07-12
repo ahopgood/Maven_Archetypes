@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.domain;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -53,7 +56,9 @@ public class Person {
 		if (o == null || this.getClass() != o.getClass()) return false;
 		
 		Person person = (Person)o;
-		return this.nationalInsuranceNumber.equalsIgnoreCase(person.nationalInsuranceNumber);
+		return new EqualsBuilder()
+			.append(this.nationalInsuranceNumber, person.nationalInsuranceNumber)
+			.isEquals();
 	}
 	
 	@Override

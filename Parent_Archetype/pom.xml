@@ -4,7 +4,8 @@
 	<artifactId>Parent_Archetype</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
+	
+	<!-- To get the maven archetype plugin working you will need to point eclipse to the location of maven (not the embedded one) -->
 	<modules>
 		<module>../Json-Archetype</module>
 	</modules>

@@ -1,12 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.alexander.maven.archetypes</groupId>
-	<artifactId>Test_Archetype</artifactId>
+	<artifactId>Parent_Archetype</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>pom</packaging>
 
+	<modules>
+		<module>../Json-Archetype</module>
+	</modules>
+		
 	<url>http://some/location/${project.version}/</url>
-
+	
 	<description>
 		A description of the project this pom documents.
 	</description>
@@ -48,7 +52,7 @@
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Snapshot Maven Repository</name>
-			<url>http://artifactory.masabi.com/artifactory/libs-snapshot-local</url>
+			<url>http://artifactory.something.com/artifactory/libs-snapshot-local</url>
 		</snapshotRepository>
 		<site>
 			<id>project-server-site</id>
@@ -58,47 +62,12 @@
 
 	<!-- Details about Source Code Management Location -->
 	<scm>
+		<url>https://github.com/ahopgood/Maven_Archetypes.git</url>
 		<connection>scm:git:https://github.com/ahopgood/Maven_Archetypes.git</connection>
 		<developerConnection>scm:git:https://github.com/ahopgood/Maven_Archetypes.git</developerConnection>
-		<url>https://github.com/ahopgood/Maven_Archetypes.git</url>
 	</scm>
 
-	<!-- To get the maven archetype plugin working you will need to point eclipse to the location of maven (not the embedded one) -->
-	<dependencies>
-  		<dependency>
-  			<groupId>junit</groupId>
-  			<artifactId>junit</artifactId>
-  			<version>4.10</version>
-  			<scope>test</scope>
-		</dependency>
-		<dependency>
-  			<groupId>org.springframework</groupId>
-  			<artifactId>spring-context</artifactId>
-  			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-		</dependency>
-	</dependencies>
-  
-  	<properties>
+	<properties>
   		<spring.version>3.0.5.RELEASE</spring.version>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>1.6</java.version>
@@ -122,7 +91,7 @@
   		<servlet.container.password>robomanager</servlet.container.password>
   		<cargo.tomcat.manager.url>http://${hostname}:${port}/manager/text</cargo.tomcat.manager.url> <!-- /manager/ for tomcat6 -->
 	</properties>
-  
+	
 	<build>
     	<plugins>
   			<plugin>
@@ -152,7 +121,8 @@
   			<plugin>
   				<groupId>org.codehaus.cargo</groupId>
   				<artifactId>cargo-maven2-plugin</artifactId>
-  				<version>1.2.4</version>  				<configuration>
+  				<version>1.2.4</version>
+  				<configuration>
   					<container>
 	  					<containerId>${tomcat.containerId}</containerId>
 	  					<type>remote</type>
@@ -267,7 +237,7 @@
 			</resource>
 		</resources>
 	</build>
-  
+
   	<!-- Plugin configuration specified here for reporting -->
 	<reporting>
 		<plugins>
@@ -384,5 +354,5 @@
   				<build.name>${env}Test</build.name>
   			</properties>
   		</profile>
-  	</profiles>
+  	</profiles>	
 </project>

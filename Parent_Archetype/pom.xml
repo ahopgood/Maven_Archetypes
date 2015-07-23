@@ -73,6 +73,8 @@
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>1.6</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+		<!-- Dependency Versions -->
+  		<junit.dep.version>4.10</junit.dep.version>	
   		<!-- Maven plugin versions -->
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
   		<maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>

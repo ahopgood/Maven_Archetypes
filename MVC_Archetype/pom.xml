@@ -3,8 +3,8 @@
   <parent>
     <groupId>com.alexander.maven.archetypes</groupId>
     <artifactId>Parent_Archetype</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <relativePath>../Parent_Archetype</relativePath>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>MVC_Archetype</artifactId>
   <packaging>war</packaging>

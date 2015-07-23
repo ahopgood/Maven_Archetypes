@@ -8,6 +8,7 @@
 	<modules>
 		<module>../Json-Archetype</module>
 		<module>../MVC_Archetype</module>
+		<module>../Neo4J_Archetype</module>
 	</modules>
 		
 	<url>http://some/location/${project.version}/</url>
@@ -225,7 +226,7 @@
 
 		<filters>
 			<!-- These filtered properties can be used in the specified filtered resources -->
-			<filter>src/main/filters/common-filter.properties</filter>
+<!-- 			<filter>src/main/filters/common-filter.properties</filter> -->
 		</filters>
 		<resources>
 			<resource>

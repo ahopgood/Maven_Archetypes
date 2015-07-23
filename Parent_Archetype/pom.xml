@@ -7,6 +7,7 @@
 
 	<modules>
 		<module>../Json-Archetype</module>
+		<module>../MVC_Archetype</module>
 	</modules>
 		
 	<url>http://some/location/${project.version}/</url>

@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.controllers;
 
 import com.alexander.maven.archetypes.domain.PersonDao;

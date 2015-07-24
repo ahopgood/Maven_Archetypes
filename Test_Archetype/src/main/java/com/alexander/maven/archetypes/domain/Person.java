@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.domain;
 
 import java.io.Serializable;
@@ -70,5 +73,12 @@ public class Person implements Serializable {
 		return new HashCodeBuilder(19,51)
 		.append(this.nationalInsuranceNumber)
 		.toHashCode();
+	}
+	
+	@Override
+	public String toString(){
+		return new ToStringBuilder(this)
+		.append("National Insurance Number", this.nationalInsuranceNumber)
+		.toString();
 	}
 }

@@ -1,12 +1,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.alexander.maven.archetypes</groupId>
-	<artifactId>Test_Archetype</artifactId>
+	<artifactId>Parent_Archetype</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	
-	<url>http://some/location/${project.version}/</url>
+	<packaging>pom</packaging>
 
+	<modules>
+		<module>../Json-Archetype</module>
+		<module>../MVC_Archetype</module>
+		<module>../Neo4J_Archetype</module>
+		<module>../Aop_Archetype</module>
+		<module>../Spring_Archetype</module>
+		<module>../Cxf_Archetype</module>
+		<module>../Hibernate_Archetype</module>
+		<module>../Spring-Security_Archetype</module>
+		<module>../Spring-Hibernate_Archetype</module>
+		<module>../Spring-Security-Hibernate_Archetype</module>
+		<module>../Flyway_Archetype</module>
+	</modules>
+		
+	<url>http://some/location/${project.version}/</url>
+	
 	<description>
 		A description of the project this pom documents.
 	</description>
@@ -48,7 +62,7 @@
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Snapshot Maven Repository</name>
-			<url>http://artifactory.masabi.com/artifactory/libs-snapshot-local</url>
+			<url>http://artifactory.something.com/artifactory/libs-snapshot-local</url>
 		</snapshotRepository>
 		<site>
 			<id>project-server-site</id>
@@ -58,47 +72,12 @@
 
 	<!-- Details about Source Code Management Location -->
 	<scm>
+		<url>https://github.com/ahopgood/Maven_Archetypes.git</url>
 		<connection>scm:git:https://github.com/ahopgood/Maven_Archetypes.git</connection>
 		<developerConnection>scm:git:https://github.com/ahopgood/Maven_Archetypes.git</developerConnection>
-		<url>https://github.com/ahopgood/Maven_Archetypes.git</url>
 	</scm>
 
-	<!-- To get the maven archetype plugin working you will need to point eclipse to the location of maven (not the embedded one) -->
-	<dependencies>
-  		<dependency>
-  			<groupId>junit</groupId>
-  			<artifactId>junit</artifactId>
-  			<version>4.10</version>
-  			<scope>test</scope>
-		</dependency>
-		<dependency>
-  			<groupId>org.springframework</groupId>
-  			<artifactId>spring-context</artifactId>
-  			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>4.1.7.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.21</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.2-pre5</version>
-		</dependency>
-	</dependencies>
-
-  	<properties>
+	<properties>
   		<spring.version>3.0.5.RELEASE</spring.version>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>1.6</java.version>
@@ -122,8 +101,8 @@
   		<servlet.container.password>robomanager</servlet.container.password>
   		<cargo.tomcat.manager.url>http://${hostname}:${port}/manager/text</cargo.tomcat.manager.url> <!-- /manager/ for tomcat6 -->
 	</properties>
-    
-  <build>
+	
+	<build>
     	<plugins>
   			<plugin>
   				<groupId>org.apache.maven.plugins</groupId>
@@ -250,28 +229,26 @@
 				</executions>
 			</plugin>
 		</plugins>
-	</plugins>
-	<!-- Build info and misc resource stuff -->
-	<finalName>${build.name}</finalName>
+		<!-- Build info and misc resource stuff -->
+		<finalName>${build.name}</finalName>
 
-	<filters>
-		<!-- These filtered properties can be used in the specified filtered resources -->
-		<filter>src/main/filters/common-filter.properties</filter>
-		<filter>src/main/filters/jdbc-filter.properties</filter>
-	</filters>
-	<resources>
-		<resource>
-			<directory>src/main/resources</directory>
-			<filtering>true</filtering>
-		</resource>
-		<resource>
-			<directory>src/main/nonFilteredResources</directory>
-			<filtering>false</filtering>
-		</resource>
-	</resources>
-  </build>
- 
-   	<!-- Plugin configuration specified here for reporting -->
+		<filters>
+			<!-- These filtered properties can be used in the specified filtered resources -->
+<!-- 			<filter>src/main/filters/common-filter.properties</filter> -->
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/nonFilteredResources</directory>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+	</build>
+
+  	<!-- Plugin configuration specified here for reporting -->
 	<reporting>
 		<plugins>
 			<!-- Project Info Report on the left side of the site -->
@@ -375,17 +352,17 @@
 
 		</plugins>
 	</reporting>
-  
-  <profiles>
-  	<profile>
-  		<id>DEV</id>	<!-- The name entered when running "mvn clean package -P DEV" to run a profile -->
-  		<activation>	<!-- Used to specify any conditions needed for the profile to be activated, also used to specify which profile is active by default -->
-  			<activeByDefault>true</activeByDefault>
-  		</activation>
-  		<properties>	<!-- These function like standard pom properties but override if there are duplicates -->
-  			<env>DEV</env>	<!-- can be used to alter the build name -->
-  			<build.name>${env}Test</build.name>
-  		</properties>
-  	</profile>
-  </profiles>
+	  
+	<profiles>
+  		<profile>
+  			<id>DEV</id>	<!-- The name entered when running "mvn clean package -P DEV" to run a profile -->
+  			<activation>	<!-- Used to specify any conditions needed for the profile to be activated, also used to specify which profile is active by default -->
+  				<activeByDefault>true</activeByDefault>
+  			</activation>
+  			<properties>	<!-- These function like standard pom properties but override if there are duplicates -->
+  				<env>DEV</env>	<!-- can be used to alter the build name -->
+  				<build.name>${env}Test</build.name>
+  			</properties>
+  		</profile>
+  	</profiles>	
 </project>

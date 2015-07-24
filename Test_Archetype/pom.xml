@@ -249,7 +249,6 @@
 					</execution>
 				</executions>
 			</plugin>
-		</plugins>
 	</plugins>
 	<!-- Build info and misc resource stuff -->
 	<finalName>${build.name}</finalName>

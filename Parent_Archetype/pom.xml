@@ -10,6 +10,13 @@
 		<module>../MVC_Archetype</module>
 		<module>../Neo4J_Archetype</module>
 		<module>../Aop_Archetype</module>
+		<module>../Spring_Archetype</module>
+		<module>../Cxf_Archetype</module>
+		<module>../Hibernate_Archetype</module>
+		<module>../Spring-Security_Archetype</module>
+		<module>../Spring-Hibernate_Archetype</module>
+		<module>../Spring-Security-Hibernate_Archetype</module>
+		<module>../Flyway_Archetype</module>
 	</modules>
 		
 	<url>http://some/location/${project.version}/</url>

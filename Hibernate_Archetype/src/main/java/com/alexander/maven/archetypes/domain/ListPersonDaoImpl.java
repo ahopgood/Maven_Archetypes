@@ -6,6 +6,8 @@ package com.alexander.maven.archetypes.domain;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.alexander.maven.archetypes.domain.dao.PersonDao;
+
 public class ListPersonDaoImpl implements PersonDao {
 
 	protected List<Person> persons = new LinkedList<Person>();
@@ -14,7 +16,7 @@ public class ListPersonDaoImpl implements PersonDao {
 	 * Should find a person by their national insurance number
 	 */
 	public Person findPersonByNationalInsuranceNumber(String insuranceNumber) {
-		Person toFind	= new Person(insuranceNumber,"","");
+		Person toFind	= new Person(insuranceNumber);
 		Person found 	= null;
 		if (persons.contains(toFind)){
 			int index = persons.indexOf(toFind);

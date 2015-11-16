@@ -17,6 +17,7 @@
 		<module>../Spring-Hibernate_Archetype</module>
 		<module>../Spring-Security-Hibernate_Archetype</module>
 		<module>../Flyway_Archetype</module>
+		<module>../Jersey_Archetype</module>
 	</modules>
 		
 	<url>http://some/location/${project.version}/</url>

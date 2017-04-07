@@ -1,12 +1,14 @@
-<<<<<<< HEAD
 *.settings
 *.classpath
 *.project
 */target
 */data
-=======
+
 */.settings
 */.classpath
 */.project
 */target
->>>>>>> refs/heads/master
+
+.idea/*
+.idea/*/*
+*/*.iml

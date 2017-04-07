@@ -19,6 +19,7 @@
 		<module>../Flyway_Archetype</module>
 		<module>../Jersey_Archetype</module>
 		<module>../Java7</module>
+		<module>../Java8</module>
 	</modules>
 		
 	<url>http://some/location/${project.version}/</url>

@@ -6,7 +6,6 @@
         <artifactId>Parent_Archetype</artifactId>
         <groupId>com.alexander.maven.archetypes</groupId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../Parent_Archetype/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

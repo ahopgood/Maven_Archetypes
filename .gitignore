@@ -3,12 +3,5 @@
 *.project
 */target
 */data
-
-*/.settings
-*/.classpath
-*/.project
-*/target
-
-.idea/*
-.idea/*/*
-*/*.iml
+**/*.iml
+.idea/**

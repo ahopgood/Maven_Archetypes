@@ -30,13 +30,13 @@
 	</description>
 
 	<issueManagement>
-		<system></system><!-- Jira, Mantis etc -->
-		<url></url>
+		<system>Jira</system><!-- Jira, Mantis etc -->
+		<url>http://issues.alexhopgood.co.uk</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>Jenkins</system>
-		<url>http://hudson.masabi.com/</url>
+		<url>http://jenkins.alexhopgood.com/</url>
 		<notifiers>
 			<notifier>
 				<address>alex.hopgood+${artifactId}-issues@gmail.com</address>
@@ -59,18 +59,18 @@
 	<!-- Used for publishing artifacts -->
 	<distributionManagement>
 		<repository> <!-- Release repo -->
-			<id>${artifactId}-repo</id>
+			<id>releases</id>
 			<name>Releases Maven Artifactory Repository</name>
-			<url>http://artifactory.something.com/artifactory/libs-release-local</url>
+			<url>http://artifactory.alexhopgood.com/artifactory/libs-release-local</url>
 		</repository>
 		<snapshotRepository>
 			<id>snapshots</id>
 			<name>Snapshot Maven Repository</name>
-			<url>http://artifactory.something.com/artifactory/libs-snapshot-local</url>
+			<url>http://artifactory.alexhopgood.com/artifactory/libs-snapshot-local</url>
 		</snapshotRepository>
 		<site>
 			<id>project-server-site</id>
-			<url>scp://domain/apache2/path/${project.version}/</url>
+			<url>scp://projects.maven.alexhopgood.com/apache2/path/${project.version}/</url>
 		</site>
 	</distributionManagement>
 

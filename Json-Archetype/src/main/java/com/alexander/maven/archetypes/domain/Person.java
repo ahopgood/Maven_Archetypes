@@ -57,7 +57,7 @@ public class Person {
 		
 		Person person = (Person)o;
 		return new EqualsBuilder()
-			.append(this.nationalInsuranceNumber, person.nationalInsuranceNumber)
+			.append(this.nationalInsuranceNumber.toLowerCase(), person.nationalInsuranceNumber.toLowerCase())
 			.isEquals();
 	}
 	

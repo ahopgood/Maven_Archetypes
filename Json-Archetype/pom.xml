@@ -20,7 +20,7 @@
  					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 	<parent>
@@ -30,7 +30,7 @@
 		<relativePath>../Parent_Archetype</relativePath>
 	</parent>
 	<packaging>war</packaging>
-	
+
 	<dependencies>
   		<dependency>
   			<groupId>junit</groupId>
@@ -74,5 +74,5 @@
 			<version>1.5.3</version>
 		</dependency>
 	</dependencies>
-	
+
 </project>

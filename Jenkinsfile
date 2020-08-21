@@ -5,18 +5,18 @@ pipeline {
             steps {
                 git credentialsId: 'github_token', url: 'https://github.com/ahopgood/Maven_Archetypes.git', branch: '${BRANCH_NAME}'
                 sh 'mvn --version'
-                sh 'mvn clean install'
+                sh 'mvn clean install -pl Hibernate_Archetype,Java7,Java8,Spring-Boot_Archetype'
             }
         }
     }
     post {
         always {
-            junit 'target/surefire-reports/*.xml'
+            junit '**/target/surefire-reports/*.xml'
             jacoco(
-                  execPattern: 'target/jacoco.exec',
-                  classPattern: 'target/classes',
-                  sourcePattern: 'src/main/java',
-                  exclusionPattern: 'src/test*'
+                  execPattern: '**/target/jacoco.exec',
+                  classPattern: '**/target/classes',
+                  sourcePattern: '**/src/main/java',
+                  exclusionPattern: '**/src/test*'
             )
         }
     }

@@ -83,8 +83,6 @@ public class Person implements Serializable {
 		Person person = (Person)o;
 		return new EqualsBuilder()
 			.append(this.nationalInsuranceNumber, person.nationalInsuranceNumber)
-			.append(this.lastName, person.getLastName())
-			.append(this.firstName, person.getFirstName())
 			.isEquals();
 	}
 	
@@ -92,8 +90,6 @@ public class Person implements Serializable {
 	public int hashCode(){
 		return new HashCodeBuilder(19,51)
 		.append(this.nationalInsuranceNumber)
-		.append(this.lastName)
-		.append(this.firstName)
 		.toHashCode();
 	}
 	

@@ -13,21 +13,21 @@ import org.junit.Test;
 
 public class PersonTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
+			@Before
+			public void setUp() throws Exception {
+			}
 
-	@After
-	public void tearDown() throws Exception {
-	}
+			@After
+			public void tearDown() throws Exception {
+			}
 
-	@Test
-	public void testEquals() {
-		Person person1 = new Person("JK168376A","Alex","Hopgood");
-		Person person2 = new Person("JK168376A","Alexander","Hopgood");
-		assertTrue(person1.equals(person2));
-		
-		assertTrue(person1.equals(person1));
+			@Test
+			public void testEquals() {
+				Person person1 = new Person("JK168376A","Alex","Hopgood");
+				Person person2 = new Person("JK168376A","Alexander","Hopgood");
+				assertTrue(person1.equals(person2));
+
+				assertTrue(person1.equals(person1));
 	}
 	
 	@Test

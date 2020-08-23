@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.domain;
 
 import java.util.LinkedList;
@@ -11,7 +14,7 @@ public class ListPersonDaoImpl implements PersonDao {
 	 * Should find a person by their national insurance number
 	 */
 	public Person findPersonByNationalInsuranceNumber(String insuranceNumber) {
-		Person toFind	= new Person(insuranceNumber);
+		Person toFind	= new Person(insuranceNumber,"","");
 		Person found 	= null;
 		if (persons.contains(toFind)){
 			int index = persons.indexOf(toFind);
@@ -21,6 +24,7 @@ public class ListPersonDaoImpl implements PersonDao {
 	}
 
 	public boolean addPerson(Person person) {
+		if (person == null) return false;
 		if (person.getNationalInsuranceNumber() == null) return false;
 		if (persons.contains(person)){
 			return false;

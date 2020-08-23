@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.domain;
 
 import static org.junit.Assert.assertEquals;
@@ -26,7 +29,7 @@ public class ListPersonDaoImplTest {
 	@Test
 	public void testAddPerson() {
 		assertTrue(personDao.persons.isEmpty());
-		Person person1 = new Person(NAT_INS_NUMBER);
+		Person person1 = new Person(NAT_INS_NUMBER,"Alex","Hopgood");
 		
 		assertTrue(personDao.addPerson(person1));
 		assertTrue(!personDao.persons.isEmpty());
@@ -36,7 +39,7 @@ public class ListPersonDaoImplTest {
 	@Test
 	public void testAddPersonDuplicate() {
 		assertTrue(personDao.persons.isEmpty());
-		Person person1 = new Person(NAT_INS_NUMBER);
+		Person person1 = new Person(NAT_INS_NUMBER,"Alex","Hopgood");
 		
 		assertTrue(personDao.addPerson(person1));
 		assertTrue(!personDao.persons.isEmpty());
@@ -48,7 +51,7 @@ public class ListPersonDaoImplTest {
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());		
 		
 		//New object same national insurance number
-		Person person2 = new Person(NAT_INS_NUMBER);
+		Person person2 = new Person(NAT_INS_NUMBER,"Alex","Hopgood");
 		assertTrue(!personDao.addPerson(person2));
 		assertTrue(!personDao.persons.isEmpty());
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());
@@ -72,6 +75,17 @@ public class ListPersonDaoImplTest {
 		assertEquals("We should have no elements in the list.",0,personDao.persons.size());
 	}
 	
+	
+	@Test
+	public void testAddNullPerson() {
+		assertTrue(personDao.persons.isEmpty());
+		Person person1 = new Person(null,null,null);
+		
+		assertTrue(! personDao.addPerson(person1));
+		assertTrue(personDao.persons.isEmpty());
+		assertEquals("We should have no elements in the list.",0,personDao.persons.size());
+	}
+	
 	@Test
 	public void testFindPersonByNationalInsuranceNumber() {
 		//empty list
@@ -84,7 +98,7 @@ public class ListPersonDaoImplTest {
 		assertNull(differentFound);
 		
 		//find person that is in collection
-		assertTrue(personDao.addPerson(new Person(NAT_INS_NUMBER)));
+		assertTrue(personDao.addPerson(new Person(NAT_INS_NUMBER,"Alex","Hopgood")));
 		Person found = personDao.findPersonByNationalInsuranceNumber(NAT_INS_NUMBER);
 		assertNotNull(found);
 	}

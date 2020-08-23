@@ -52,6 +52,6 @@
         <spring.version>3.0.5.RELEASE</spring.version>
         <cxf.bundle.ver>2.7.0</cxf.bundle.ver>
         <final.name>CxfTest</final.name>
-        <hibernate.version>4.3.11.final</hibernate.version>
+        <hibernate.version>4.2.11.Final</hibernate.version>
     </properties>
 </project>

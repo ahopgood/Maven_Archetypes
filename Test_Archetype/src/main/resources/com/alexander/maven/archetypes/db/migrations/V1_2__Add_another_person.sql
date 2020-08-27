@@ -1,1 +1,0 @@
-INSERT INTO person (ID, InsuranceNumber) VALUES (2, "JK168376C");

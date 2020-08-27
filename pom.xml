@@ -6,7 +6,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>Json-Archetype</module>
+		<module>Json_Archetype</module>
 		<module>MVC_Archetype</module>
 		<module>Neo4J_Archetype</module>
 		<module>Aop_Archetype</module>

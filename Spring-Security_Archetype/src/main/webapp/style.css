@@ -1,0 +1,35 @@
+#header{
+	background-color: #CCCCFF;
+}
+
+#header ul {
+	margin: 0px;
+	padding: 4px 2px;	/* padding of 4px at top and bottom with 2px at left and right */
+}
+
+#header ul li {
+	float: left;		/* Orders elements horizontally to the left of the screen  */
+	list-style: none;
+	margin-left:10px;	/* Increases area on the left */
+	display: block;
+}
+
+#hreader ul li a {
+	color: white;
+	text-decoration: none;
+}
+
+#header ul li a:hover {
+	font-weight: bold;
+}
+
+#header br {
+	clear: both;
+	zoom: 1;
+}
+
+#header .username {
+	color: white;
+	text-align: right;
+	float: right;
+}

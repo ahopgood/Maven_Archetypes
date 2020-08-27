@@ -1,10 +1,8 @@
-package com.alexander.maven.archetypes.domain.dao;
+package com.alexander.maven.archetypes.dao;
 
 import com.alexander.maven.archetypes.domain.Person;
 
-public interface PersonDao {
+public interface PersonDao extends BaseDao<Person> {
 
 	public Person findPersonByNationalInsuranceNumber(String insuranceNumber);
-	
-	public boolean addPerson(Person person);
 }

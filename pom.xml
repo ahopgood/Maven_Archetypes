@@ -87,7 +87,7 @@
   		<java.version>1.6</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
 		<!-- Dependency Versions -->
-  		<junit.dep.version>4.10</junit.dep.version>	
+  		<junit.dep.version>4.10</junit.dep.version>
   		<!-- Maven plugin versions -->
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
   		<maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
@@ -219,22 +219,22 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version>${maven.enforcer.plugin.version}</version>
-				<!--<executions>-->
-					<!--<execution>-->
-						<!--<id>enforce-no-snapshots</id>-->
-						<!--<goals>-->
-							<!--<goal>enforce</goal>-->
-						<!--</goals>-->
-						<!--<configuration>-->
-							<!--<rules>-->
-								<!--&lt;!&ndash;<requireReleaseDeps>&ndash;&gt;-->
-                  					<!--&lt;!&ndash;<message>No Snapshots Allowed!</message>&ndash;&gt;-->
-                				<!--&lt;!&ndash;</requireReleaseDeps>&ndash;&gt;-->
-							<!--</rules>-->
-							<!--<fail>true</fail>-->
-						<!--</configuration>-->
-					<!--</execution>-->
-				<!--</executions>-->
+				<executions>
+<!--					<execution>-->
+<!--						<id>enforce-no-snapshots</id>-->
+<!--						<goals>-->
+<!--							<goal>enforce</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<rules>-->
+<!--								<requireReleaseDeps>-->
+<!--                  					<message>No Snapshots Allowed!</message>-->
+<!--                				</requireReleaseDeps>-->
+<!--							</rules>-->
+<!--							<fail>true</fail>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+				</executions>
 			</plugin>
 		</plugins>
 		<!-- Build info and misc resource stuff -->

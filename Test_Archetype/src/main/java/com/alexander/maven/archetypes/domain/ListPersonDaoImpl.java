@@ -1,9 +1,10 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.domain;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import com.alexander.maven.archetypes.domain.dao.PersonDao;
 
 public class ListPersonDaoImpl implements PersonDao {
 
@@ -22,20 +23,7 @@ public class ListPersonDaoImpl implements PersonDao {
 		return found;
 	}
 
-	@Override
-	public Person get(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Person> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean save(Person person) {
+	public boolean addPerson(Person person) {
 		if (person == null) return false;
 		if (person.getNationalInsuranceNumber() == null) return false;
 		if (persons.contains(person)){
@@ -43,18 +31,6 @@ public class ListPersonDaoImpl implements PersonDao {
 		} else {
 			return persons.add(person);
 		}
-	}
-
-	@Override
-	public void delete(Person person) {
-		if (person != null){
-			if (person.getNationalInsuranceNumber() != null){
-				if (persons.contains(person)){
-					persons.remove(person);
-				}//person found in persons collection
-			}//insuranceNumber check
-		}//null check
-		
 	}
 
 }

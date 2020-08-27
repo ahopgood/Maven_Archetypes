@@ -2,67 +2,21 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
 		xmlns:context="http://www.springframework.org/schema/context"
 		xmlns:tx="http://www.springframework.org/schema/tx"
-		xsi:schemaLocation="
-			http://www.springframework.org/schema/beans 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-			http://www.springframework.org/schema/context 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
-			http://www.springframework.org/schema/tx 		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-			http://www.springframework.org/schema/aop 		http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop 		
+			http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
             
-
-			
-	<!-- Properties Encryption
-	<bean class="org.jasypt.spring.properties.EncryptablePropertyPlaceholderConfigurer">
-		<constructor-arg ref="stringEncryptor" />
-	    <property name="locations">
-	    	<list>
-	    		<value>${local.config.path}/db-config.properties</value>
-	    		<value>${local.config.path}/brands.properties</value>
-	    		<value>${local.config.path}/wsg.properties</value>
-	    	</list>
-	    </property>
-	</bean>
-	-->
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	    <property name="locations">
-	    	<list>
-	    		<value>classpath:external.properties</value>
-	    	</list>
-	    </property>
-	</bean>
-			
-			<tx:annotation-driven />
-			
-			<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-				<property name="driverClass" 				value="${seed.db.driver}" />
-				<property name="jdbcUrl" 					value="${seed.db.url}" />
-				<property name="user" 						value="${seed.db.username}" />
-				<property name="password" 					value="${seed.db.password}" />
-				<property name="maxPoolSize" 				value="${seed.db.pool.maxpoolsize}" />
-				<property name="initialPoolSize" 			value="${seed.db.pool.initialpoolsize}" />
-				<property name="preferredTestQuery" 		value="select 1;" />
-				<property name="maxIdleTime" 				value="${seed.db.pool.maxidletime}" />
-				<property name="maxStatementsPerConnection"	value="10" />
-												
-			</bean>
-			
-			<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-				<property name="dataSource" 	ref="dataSource" />
-				<property name="configLocation"	value="classpath:hibernate.cfg.xml"/>
-				<property name="hibernateProperties">
-					<value>
-						hibernate.dialect		= org.hibernate.dialect.MySQLDialect
-						hibernate.hbm2ddl.auto	= update 
-					</value>
-				</property>
-			</bean>
-			
-			<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-				<property name="sessionFactory" ref="sessionFactory" />
-			</bean>
-			
-			<bean id="hibernatePersonDao" class="com.alexander.maven.archetypes.domain.HibernatePersonDao">
-				<property name="sessionFactory" ref="sessionFactory"/>
+            <bean id="personDao" class="com.alexander.maven.archetypes.domain.ListPersonDaoImpl" />
+            
+			<bean id="controller" class="com.alexander.maven.archetypes.controllers.PersonController">
+           		<property name="personDao" ref="personDao"/>
 			</bean>
 </beans>

@@ -1,25 +1,22 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alexander.maven.archetypes.domain.Person;
-import com.alexander.maven.archetypes.domain.dao.PersonDao;
+import com.alexander.maven.archetypes.domain.PersonDao;
 
 @Controller
 @RequestMapping("/persons/*")
 public class PersonController {
 
 	protected static final String PERSON_NOT_FOUND = "Person could not be found.";
-	
-	@RequestMapping("/view/{page}")
-	public String forward(@PathVariable String page){
-		System.out.println("Request found for page "+page);
-		return page;
-	}
+
 	
 	@RequestMapping("add")
 	public @ResponseBody String addPerson(@RequestParam String insuranceNumber, 
@@ -27,7 +24,7 @@ public class PersonController {
 			@RequestParam String secondName){
 		System.out.println("In the addPerson call");
 		Person person = new Person(insuranceNumber, firstName, secondName);
-		return ""+this.personDao.save(person);//, "First", "Surname");
+		return ""+this.personDao.addPerson(person);
 	}
 	
 	@RequestMapping("get")

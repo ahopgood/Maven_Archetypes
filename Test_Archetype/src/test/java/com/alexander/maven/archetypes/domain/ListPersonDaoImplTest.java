@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.domain;
 
 import static org.junit.Assert.assertEquals;
@@ -53,6 +56,25 @@ public class ListPersonDaoImplTest {
 		assertTrue(!personDao.persons.isEmpty());
 		assertEquals("We should only have one element in the list.",1,personDao.persons.size());
 	}
+	
+	@Test public void 
+	testAddPerson_given_null_insurance_number() {
+		assertTrue(personDao.persons.isEmpty());
+		Person person1 = new Person(null);
+		
+		assertTrue(! personDao.addPerson(person1));
+		assertTrue(personDao.persons.isEmpty());
+		assertEquals("We should have no elements in the list.",0,personDao.persons.size());
+	}
+	
+	@Test public void 
+	testAddPerson_given_null_person() {
+		assertTrue(personDao.persons.isEmpty());
+		assertTrue(! personDao.addPerson(null));
+		assertTrue(personDao.persons.isEmpty());
+		assertEquals("We should have no elements in the list.",0,personDao.persons.size());
+	}
+	
 	
 	@Test
 	public void testAddNullPerson() {

@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2015 Alexander Hopgood
+ */
 package com.alexander.maven.archetypes.domain;
 
 import java.util.LinkedList;
@@ -21,6 +24,7 @@ public class ListPersonDaoImpl implements PersonDao {
 	}
 
 	public boolean addPerson(Person person) {
+		if (person == null) return false;
 		if (person.getNationalInsuranceNumber() == null) return false;
 		if (persons.contains(person)){
 			return false;

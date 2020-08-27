@@ -1,0 +1,1 @@
+ALTER TABLE PERSON ADD Name varchar(100);

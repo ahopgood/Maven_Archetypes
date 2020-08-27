@@ -5,7 +5,7 @@ pipeline {
             steps {
                 git credentialsId: 'github_token', url: 'https://github.com/ahopgood/Maven_Archetypes.git', branch: '${BRANCH_NAME}'
                 sh 'mvn --version'
-                sh 'mvn clean install -pl Hibernate_Archetype,Java7,Java8,Spring-Boot_Archetype'
+                sh 'mvn clean install -pl Hibernate_Archetype,Java7,Java8,Spring-Boot_Archetype,Cxf_Archetype,Aop_Archetype,Spring_Archetype,Spring-Security_Archetype,Spring-Security-Hibernate_Archetype,Flyway_Archetype,Neo4J_Archetype'
             }
         }
     }

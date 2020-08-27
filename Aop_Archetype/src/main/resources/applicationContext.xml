@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+            
+            <bean id="personDao" class="com.alexander.maven.archetypes.domain.ListPersonDaoImpl" />
+            
+			<bean id="controller" class="com.alexander.maven.archetypes.controllers.PersonController">
+           		<property name="personDao" ref="personDao"/>
+			</bean>
+
+			<!-- Person DAO instance -->
+			<bean id="aopPersonDao" class="com.alexander.maven.archetypes.aop.AopPersonDao" />
+
+			<bean id="noPointcutPersonDao" class="com.alexander.maven.archetypes.aop.AopPersonDao" />
+
+			<bean id="personAspect" class="com.alexander.maven.archetypes.aop.PersonAspect"/>
+
+			<aop:config>
+				<aop:aspect ref="personAspect">
+					<aop:pointcut id="addAnyPerson" expression="execution(* com.alexander.maven.archetypes.aop.AopPersonDao.addPerson(
+																	com.alexander.maven.archetypes.domain.Person))
+																	and args(person)
+																	and bean(aopPersonDao)"/>
+					<!-- Advice ordering is important -->
+					<aop:before pointcut-ref="addAnyPerson" method="before"/>
+					<aop:around pointcut-ref="addAnyPerson" method="around"/>
+					<aop:after-returning pointcut-ref="addAnyPerson" method="afterReturning" returning="success"/>
+					<aop:after-throwing pointcut-ref="addAnyPerson" method="afterThrowing"/>
+					<aop:after pointcut-ref="addAnyPerson" method="afterFinally"/> <!-- AfterFinally Advice -->
+				</aop:aspect>
+			</aop:config>
+</beans>

@@ -86,11 +86,14 @@
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>1.6</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+        <spring-boot.version>1.5.2.RELEASE</spring-boot.version>
 		<!-- Dependency Versions -->
-  		<junit.dep.version>4.10</junit.dep.version>
+		<junit-5.version>5.5.2</junit-5.version>
+		<junit.dep.version>4.10</junit.dep.version>
+		<mockito.version>2.10.0</mockito.version>
   		<!-- Maven plugin versions -->
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
-  		<maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
+  		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
   		<maven.dependency.check.plugin.version>1.2.5</maven.dependency.check.plugin.version>
   		<maven.changelog.plugin.version>2.3</maven.changelog.plugin.version>
@@ -109,13 +112,45 @@
   		<servlet.container.password>robomanager</servlet.container.password>
   		<cargo.tomcat.manager.url>http://${hostname}:${port}/manager/text</cargo.tomcat.manager.url> <!-- /manager/ for tomcat6 -->
 	</properties>
-	
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter</artifactId>
+				<version>${junit-5.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.vintage</groupId>
+				<artifactId>junit-vintage-engine</artifactId>
+				<version>${junit-5.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
+        <pluginManagement>
+            <plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+            </plugins>
+        </pluginManagement>
     	<plugins>
   			<plugin>
   				<groupId>org.apache.maven.plugins</groupId>
   				<artifactId>maven-compiler-plugin</artifactId>
-  				<version>${maven.compiler.plugin.version}</version>
+  				<version>${maven-compiler-plugin.version}</version>
   				<configuration>
   					<source>${java.version}</source>
   					<target>${java.version}</target>

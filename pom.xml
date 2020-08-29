@@ -39,7 +39,7 @@
 		<url>http://jenkins.alexhopgood.com/</url>
 		<notifiers>
 			<notifier>
-				<address>alex.hopgood+${artifactId}-issues@gmail.com</address>
+				<address>alex.hopgood+${project.artifactId}-issues@gmail.com</address>
 				<type>mail</type>
 			</notifier>
 		</notifiers>
@@ -82,15 +82,21 @@
 	</scm>
 
 	<properties>
-  		<spring.version>3.0.5.RELEASE</spring.version>
+		<spring-boot.version>2.0.0.RELEASE</spring-boot.version>
+		<spring.version>5.0.4.RELEASE</spring.version>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>1.6</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
 		<!-- Dependency Versions -->
-  		<junit.dep.version>4.10</junit.dep.version>
+		<junit-5.version>5.5.2</junit-5.version>
+		<junit.dep.version>4.10</junit.dep.version>
+		<mockito.version>2.10.0</mockito.version>
+		<commons-lang.version>2.4</commons-lang.version>
+		<aspectjweaver.version>1.7.1</aspectjweaver.version>
+		<hibernate-core.version>4.1.7.Final</hibernate-core.version>
   		<!-- Maven plugin versions -->
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
-  		<maven.compiler.plugin.version>2.5.1</maven.compiler.plugin.version>
+  		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
   		<maven.dependency.check.plugin.version>1.2.5</maven.dependency.check.plugin.version>
   		<maven.changelog.plugin.version>2.3</maven.changelog.plugin.version>
@@ -109,13 +115,76 @@
   		<servlet.container.password>robomanager</servlet.container.password>
   		<cargo.tomcat.manager.url>http://${hostname}:${port}/manager/text</cargo.tomcat.manager.url> <!-- /manager/ for tomcat6 -->
 	</properties>
-	
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>${commons-lang.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate-core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjweaver</artifactId>
+				<version>${aspectjweaver.version}</version>
+			</dependency>
+			<!-- Spring Dependencies -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- Testing Dependencies -->
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter</artifactId>
+				<version>${junit-5.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.vintage</groupId>
+				<artifactId>junit-vintage-engine</artifactId>
+				<version>${junit-5.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
+        <pluginManagement>
+            <plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+            </plugins>
+        </pluginManagement>
     	<plugins>
   			<plugin>
   				<groupId>org.apache.maven.plugins</groupId>
   				<artifactId>maven-compiler-plugin</artifactId>
-  				<version>${maven.compiler.plugin.version}</version>
   				<configuration>
   					<source>${java.version}</source>
   					<target>${java.version}</target>

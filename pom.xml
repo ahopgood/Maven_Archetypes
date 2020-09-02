@@ -92,8 +92,13 @@
 		<junit.dep.version>4.10</junit.dep.version>
 		<mockito.version>2.10.0</mockito.version>
 		<commons-lang.version>2.4</commons-lang.version>
+		<commons-lang3.version>3.1</commons-lang3.version>
 		<aspectjweaver.version>1.7.1</aspectjweaver.version>
 		<hibernate-core.version>4.1.7.Final</hibernate-core.version>
+		<cxf.bundle.version>2.7.0</cxf.bundle.version>
+		<jaxws-ri.version>2.3.0</jaxws-ri.version>
+		<h2.version>1.4.200</h2.version>
+		<flyway.version>2.0.3</flyway.version>
   		<!-- Maven plugin versions -->
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
   		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -107,6 +112,7 @@
   		<maven.checkstyle.plugin.version>2.9.1</maven.checkstyle.plugin.version>
   		<maven.enforcer.plugin.version>1.4</maven.enforcer.plugin.version>
 		<maven.reports.plugin.version>3.1.0</maven.reports.plugin.version>
+		<dependency-check-plugin.version>5.2.2</dependency-check-plugin.version>
   		<!-- Cargo properties -->
   		<tomcat.containerId>tomcat7x</tomcat.containerId> <!-- tomcat6x -->
   		<hostname>localhost</hostname>
@@ -124,14 +130,41 @@
 				<version>${commons-lang.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate-core.version}</version>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons-lang3.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.aspectj</groupId>
 				<artifactId>aspectjweaver</artifactId>
 				<version>${aspectjweaver.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-bundle</artifactId>
+				<version>${cxf.bundle.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.sun.xml.ws</groupId>
+				<artifactId>jaxws-ri</artifactId>
+				<version>${jaxws-ri.version}</version>
+				<type>pom</type>
+			</dependency>
+			<!-- Database Dependencies -->
+			<dependency>
+				<groupId>com.googlecode.flyway</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>${flyway.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${hibernate-core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>${h2.version}</version>
 			</dependency>
 			<!-- Spring Dependencies -->
 			<dependency>
@@ -304,6 +337,22 @@
 <!--						</configuration>-->
 <!--					</execution>-->
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>${dependency-check-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<failOnError>false</failOnError>
+					<formats>HTML,XML</formats>
+				</configuration>
 			</plugin>
 		</plugins>
 		<!-- Build info and misc resource stuff -->

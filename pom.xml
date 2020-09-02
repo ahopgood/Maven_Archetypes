@@ -99,6 +99,8 @@
 		<jaxws-ri.version>2.3.0</jaxws-ri.version>
 		<h2.version>1.4.200</h2.version>
 		<flyway.version>2.0.3</flyway.version>
+		<mysql-connector.version>8.0.16</mysql-connector.version>
+		<c3p0.version>0.9.5.4</c3p0.version>
   		<!-- Maven plugin versions -->
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
   		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -165,6 +167,16 @@
 				<groupId>com.h2database</groupId>
 				<artifactId>h2</artifactId>
 				<version>${h2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql-connector.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.mchange</groupId>
+				<artifactId>c3p0</artifactId>
+				<version>${c3p0.version}</version>
 			</dependency>
 			<!-- Spring Dependencies -->
 			<dependency>

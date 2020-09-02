@@ -18,6 +18,7 @@ pipeline {
                   sourcePattern: '**/src/main/java',
                   exclusionPattern: '**/src/test*'
             )
+            dependencyCheckPublisher pattern: '**/target/dependency-check-report.xml'
         }
     }
 }

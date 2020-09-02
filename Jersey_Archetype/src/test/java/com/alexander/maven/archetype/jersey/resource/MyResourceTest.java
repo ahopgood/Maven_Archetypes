@@ -1,6 +1,8 @@
 package com.alexander.maven.archetype.jersey.resource;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -45,6 +47,7 @@ public class MyResourceTest {
     @Test
     public void testGetIt() {
         String responseMsg = target.path("myresource").request().get(String.class);
+        assertTrue(server.isStarted());
         assertEquals("Got it!", responseMsg);
     }
 

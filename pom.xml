@@ -348,6 +348,18 @@
 <!--							<fail>true</fail>-->
 <!--						</configuration>-->
 <!--					</execution>-->
+					<execution>
+						<id>enforce</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<dependencyConvergence/>
+							</rules>
+							<skip>true</skip>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>

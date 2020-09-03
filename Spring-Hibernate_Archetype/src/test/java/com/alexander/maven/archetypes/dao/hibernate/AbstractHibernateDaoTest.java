@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alexander.maven.archetypes.dao.BaseDao;
@@ -23,8 +22,7 @@ import com.alexander.maven.archetypes.domain.TestEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"hibernateContext.xml"})
-@Transactional
-@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback=true)
+@Transactional(transactionManager = "transactionManager")
 public class AbstractHibernateDaoTest {
 
 	private BaseDao<TestEntity> hibernateDao; 

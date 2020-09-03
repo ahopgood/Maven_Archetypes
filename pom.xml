@@ -100,13 +100,18 @@
 		<activation-api.version>1.2.0</activation-api.version>
 		<jersey.version>2.19</jersey.version>
 		<h2.version>1.4.200</h2.version>
+		<hsqldb.version>2.0.0</hsqldb.version>
 		<flyway.version>2.0.3</flyway.version>
 		<mysql-connector.version>8.0.16</mysql-connector.version>
 		<c3p0.version>0.9.5.4</c3p0.version>
 		<jackson.version>1.5.3</jackson.version>
 		<jstl.version>1.2</jstl.version>
 		<javax-servlet-api.version>3.0.1</javax-servlet-api.version>
-  		<!-- Maven plugin versions -->
+		<neo4j.version>1.8.1</neo4j.version>
+		<spring.data.neo4j.version>2.1.0.RELEASE</spring.data.neo4j.version>
+		<neo4j-cypher-dsl.version>1.8</neo4j-cypher-dsl.version>
+		<cglib-nodep.version>2.2.2</cglib-nodep.version>
+		<!-- Maven plugin versions -->
   		<maven.site.plugin.version>3.3</maven.site.plugin.version>
   		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
@@ -122,6 +127,7 @@
 		<dependency-check-plugin.version>5.2.2</dependency-check-plugin.version>
 		<maven-exec-plugin.version>1.2.1</maven-exec-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+		<maven-cargo-plugin.version>1.2.4</maven-cargo-plugin.version>
   		<!-- Cargo properties -->
   		<tomcat.containerId>tomcat7x</tomcat.containerId> <!-- tomcat6x -->
   		<hostname>localhost</hostname>
@@ -184,6 +190,11 @@
 				<artifactId>jackson-core-asl</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib-nodep</artifactId>
+				<version>${cglib-nodep.version}</version>
+			</dependency>
 			<!-- Database Dependencies -->
 			<dependency>
 				<groupId>com.googlecode.flyway</groupId>
@@ -210,6 +221,11 @@
 				<artifactId>c3p0</artifactId>
 				<version>${c3p0.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>${hsqldb.version}</version>
+			</dependency>
 			<!-- Spring Dependencies -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -225,6 +241,45 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
 				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- Neo4j Dependencies -->
+			<dependency>
+				<groupId>org.neo4j</groupId>
+				<artifactId>neo4j-cypher-dsl</artifactId>
+				<version>${neo4j-cypher-dsl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.neo4j</groupId>
+				<artifactId>neo4j-kernel</artifactId>
+				<version>${neo4j.version}</version>
+				<scope>test</scope>
+				<type>test-jar</type>
+			</dependency>
+			<dependency>
+				<groupId>org.neo4j</groupId>
+				<artifactId>neo4j</artifactId>
+				<version>${neo4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.data</groupId>
+				<artifactId>spring-data-neo4j</artifactId>
+				<version>${spring.data.neo4j.version}</version>
 			</dependency>
 			<!-- Testing Dependencies -->
 			<dependency>
@@ -244,6 +299,16 @@
 				<artifactId>mockito-core</artifactId>
 				<version>${mockito.version}</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>${spring-boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-test</artifactId>
+				<version>${spring-boot.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -265,6 +330,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>${maven-cargo-plugin.version}</version>
 				</plugin>
             </plugins>
         </pluginManagement>
@@ -295,7 +365,6 @@
   			<plugin>
   				<groupId>org.codehaus.cargo</groupId>
   				<artifactId>cargo-maven2-plugin</artifactId>
-  				<version>1.2.4</version>
   				<configuration>
   					<container>
 	  					<containerId>${tomcat.containerId}</containerId>

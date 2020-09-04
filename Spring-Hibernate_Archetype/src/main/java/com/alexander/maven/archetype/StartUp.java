@@ -65,7 +65,7 @@ public class StartUp {
 			.addResource(hibernateConf.getPath())
 			.buildSessionFactory(new StandardServiceRegistryBuilder()
 				.applySettings(jdbcProps)
-					.build()
+				.build()
 			);	
 		Session session = sessionFactory.openSession();//sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();		

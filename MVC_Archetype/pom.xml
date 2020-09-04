@@ -10,35 +10,29 @@
 	<!-- To get the maven archetype plugin working you will need to point eclipse to the location of maven (not the embedded one) -->
 	<dependencies>
   		<dependency>
-  			<groupId>junit</groupId>
-  			<artifactId>junit</artifactId>
-  			<version>${junit.dep.version}</version>
+  			<groupId>org.junit.vintage</groupId>
+  			<artifactId>junit-vintage-engine</artifactId>
   			<scope>test</scope>
 		</dependency>
 		<dependency>
   			<groupId>org.springframework</groupId>
   			<artifactId>spring-context</artifactId>
-  			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
 		</dependency>
 	</dependencies>
 </project>

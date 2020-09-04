@@ -8,8 +8,8 @@ import java.util.Properties;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
@@ -63,9 +63,9 @@ public class StartUp {
 			.addAnnotatedClass(Person.class)
 			.setProperty("hibernate.hbm2ddl.auto", "create")
 			.addResource(hibernateConf.getPath())
-			.buildSessionFactory(new ServiceRegistryBuilder()
-				.applySettings(jdbcProps)
-				.buildServiceRegistry()
+			.buildSessionFactory(new StandardServiceRegistryBuilder()
+					.applySettings(jdbcProps)
+					.build()
 			);	
 		Session session = sessionFactory.openSession();//sessionFactory.getCurrentSession();
 		Transaction transaction = session.beginTransaction();		

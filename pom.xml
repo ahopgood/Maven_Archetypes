@@ -113,7 +113,7 @@
 		<cglib-nodep.version>2.2.2</cglib-nodep.version>
 		<javax-persistence.version>2.0.0</javax-persistence.version>
 		<!-- Maven plugin versions -->
-  		<maven.site.plugin.version>3.3</maven.site.plugin.version>
+        <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
   		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
   		<maven.dependency.check.plugin.version>1.2.5</maven.dependency.check.plugin.version>
@@ -126,6 +126,7 @@
   		<maven.enforcer.plugin.version>1.4</maven.enforcer.plugin.version>
 		<maven.reports.plugin.version>3.1.0</maven.reports.plugin.version>
 		<dependency-check-plugin.version>5.2.2</dependency-check-plugin.version>
+		<versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
 		<maven-exec-plugin.version>1.2.1</maven-exec-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-cargo-plugin.version>1.2.4</maven-cargo-plugin.version>
@@ -511,6 +512,22 @@
 					<formats>HTML,XML</formats>
 				</configuration>
 			</plugin>
+			<plugin>
+				<!-- Aggregation not possible at the moment https://github.com/mojohaus/versions-maven-plugin/issues/333 -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>${versions-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>property-updates-report</goal>
+							<goal>dependency-updates-report</goal>
+							<goal>plugin-updates-report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 		<!-- Build info and misc resource stuff -->
 		<finalName>${build.name}</finalName>
@@ -535,41 +552,41 @@
 	<reporting>
 		<plugins>
 			<!-- Project Info Report on the left side of the site -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>${maven.reports.plugin.version}</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>index</report>
-							<report>project-team</report>
-							<report>issue-tracking</report>
-							<!-- <report>dependencies</report> --> <!-- Takes a bit of time -->
-							<report>scm</report>
-							<report>plugins</report>
-							<report>summary</report>
-							<report>cim</report>
-							<report>dependency-convergence</report>
-							<report>distribution-management</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>		
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-project-info-reports-plugin</artifactId>-->
+<!--				<version>${maven.reports.plugin.version}</version>-->
+<!--				<reportSets>-->
+<!--					<reportSet>-->
+<!--						<reports>-->
+<!--							<report>index</report>-->
+<!--							<report>project-team</report>-->
+<!--							<report>issue-tracking</report>-->
+<!--							&lt;!&ndash; <report>dependencies</report> &ndash;&gt; &lt;!&ndash; Takes a bit of time &ndash;&gt;-->
+<!--							<report>scm</report>-->
+<!--							<report>plugins</report>-->
+<!--							<report>summary</report>-->
+<!--							<report>cim</report>-->
+<!--							<report>dependency-convergence</report>-->
+<!--							<report>distribution-management</report>-->
+<!--						</reports>-->
+<!--					</reportSet>-->
+<!--				</reportSets>-->
+<!--			</plugin>		-->
 			<!-- Test coverage reports -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>${maven.cobertura.plugin.version}</version>
-				<configuration>
-					<check>
-					</check>
-					<formats>
-						<format>xml</format>
-						<format>html</format>
-					</formats>
-				</configuration>
-			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.codehaus.mojo</groupId>-->
+<!--				<artifactId>cobertura-maven-plugin</artifactId>-->
+<!--				<version>${maven.cobertura.plugin.version}</version>-->
+<!--				<configuration>-->
+<!--					<check>-->
+<!--					</check>-->
+<!--					<formats>-->
+<!--						<format>xml</format>-->
+<!--						<format>html</format>-->
+<!--					</formats>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 			<!-- Plugin for building reports on dependecies that have security vulnerabilities -->
 			<plugin>
 				<groupId>org.owasp</groupId>
@@ -582,6 +599,20 @@
 					<reportSet>
 						<reports>
 							<report>check</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>${versions-maven-plugin.version}</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>dependency-updates-report</report>
+							<report>plugin-updates-report</report>
+							<report>property-updates-report</report>
 						</reports>
 					</reportSet>
 				</reportSets>
@@ -601,7 +632,7 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>${maven.pmd.plugin.version}</version>
 				<configuration>
-					<targetjdk>${java.version}</targetjdk>
+<!--					<targetjdk>${java.version}</targetjdk>-->
 				</configuration>
 			</plugin>
 			<!-- Potential logical errors and bugs report -->
@@ -611,7 +642,7 @@
 				<version>${maven.findbugs.plugin.version}</version>
 				<!-- find bugs 2.x.x is for pre java 8, 3.x.x is for java 8 and newer -->
 				<configuration>
-					<targetJDK>${java.version}</targetJDK>
+<!--					<targetJDK>${java.version}</targetJDK>-->
 				</configuration>
 			</plugin>
 			<!-- Surefire report as part of the site generation -->

@@ -19,6 +19,14 @@ pipeline {
                   exclusionPattern: '**/src/test*'
             )
             dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+            publishHTML (target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: 'target/site/',
+                reportFiles: 'dependency-updates-report.html,property-updates-report.html,plugin-updates-report.html',
+                reportName: "Versions Report"
+            ])
         }
     }
 }

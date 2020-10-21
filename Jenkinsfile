@@ -15,7 +15,7 @@ pipeline {
         }
         stage('integration tests') {
             steps {
-                sh 'mvn clean verify -Dskip.surefire.tests=true'
+                sh 'mvn verify -Dskip.surefire.tests=true'
             }
         }
         post {

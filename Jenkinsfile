@@ -7,21 +7,23 @@ pipeline {
                 sh 'mvn --version'
                 sh 'mvn clean install -DskipITs'
             }
+                    post {
+                        always {
+                            junit '**/target/surefire-reports/*.xml'
+                        }
+                    }
         }
-        post {
-            always {
-                junit '**/target/surefire-reports/*.xml'
-            }
-        }
+
         stage('integration tests') {
             steps {
                 sh 'mvn verify -Dskip.surefire.tests=true'
             }
-        }
-        post {
-            always {
-                junit '**/target/surefire-reports/*.xml'
-            }
+                    post {
+                        always {
+                            junit '**/target/failsafe-reports/*.xml'
+                        }
+                    }
+
         }
     }
     post {

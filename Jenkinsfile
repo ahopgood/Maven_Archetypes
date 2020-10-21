@@ -5,12 +5,7 @@ pipeline {
             steps {
                 git credentialsId: 'github_token', url: 'https://github.com/ahopgood/Maven_Archetypes.git', branch: '${BRANCH_NAME}'
                 sh 'mvn --version'
-                sh 'mvn clean install -DskipITs'
-            }
-        }
-        stage('integration tests') {
-            steps {
-                sh 'mvn clean verify -Dskip.surefire.tests=true'
+                sh 'mvn clean install'
             }
         }
     }

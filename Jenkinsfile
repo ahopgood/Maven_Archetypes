@@ -5,29 +5,14 @@ pipeline {
             steps {
                 git credentialsId: 'github_token', url: 'https://github.com/ahopgood/Maven_Archetypes.git', branch: '${BRANCH_NAME}'
                 sh 'mvn --version'
-                sh 'mvn clean install -DskipITs'
+                sh 'mvn clean install'
             }
-                    post {
-                        always {
-                            junit '**/target/surefire-reports/*.xml'
-                        }
-                    }
-        }
-
-        stage('integration tests') {
-            steps {
-                sh 'mvn verify -Dskip.surefire.tests=true'
-            }
-                    post {
-                        always {
-                            junit '**/target/failsafe-reports/*.xml'
-                        }
-                    }
-
         }
     }
     post {
         always {
+            junit '**/target/surefire-reports/*.xml'
+            junit '**/target/failsafe-reports/*.xml'
             jacoco(
                   execPattern: '**/target/jacoco.exec',
                   classPattern: '**/target/classes',

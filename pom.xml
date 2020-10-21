@@ -87,6 +87,7 @@
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>1.6</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
+		<skip.surefire.tests>false</skip.surefire.tests>
 		<!-- Dependency Versions -->
 		<junit-5.version>5.6.2</junit-5.version>
 		<archunit.version>0.14.1</archunit.version>
@@ -117,7 +118,6 @@
         <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
   		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
-  		<maven.dependency.check.plugin.version>1.2.5</maven.dependency.check.plugin.version>
   		<maven.changelog.plugin.version>2.3</maven.changelog.plugin.version>
   		<maven.findbugs.plugin.version>3.0.1</maven.findbugs.plugin.version>
 <!--  		<maven.pmd.plugin.version>2.7.1</maven.pmd.plugin.version>-->
@@ -126,10 +126,12 @@
   		<maven.checkstyle.plugin.version>2.9.1</maven.checkstyle.plugin.version>
   		<maven.enforcer.plugin.version>1.4</maven.enforcer.plugin.version>
 		<maven.reports.plugin.version>3.1.0</maven.reports.plugin.version>
-		<dependency-check-plugin.version>5.2.2</dependency-check-plugin.version>
+		<dependency-check-plugin.version>6.0.2</dependency-check-plugin.version>
 		<versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
 		<maven-exec-plugin.version>1.2.1</maven-exec-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+		<maven-failsafe-plugin.version>3.0.0-M1</maven-failsafe-plugin.version>
+		<maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
 		<maven-cargo-plugin.version>1.2.4</maven-cargo-plugin.version>
   		<!-- Cargo properties -->
   		<tomcat.containerId>tomcat7x</tomcat.containerId> <!-- tomcat6x -->
@@ -372,6 +374,16 @@
 					<artifactId>cargo-maven2-plugin</artifactId>
 					<version>${maven-cargo-plugin.version}</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>${maven-failsafe-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+				</plugin>
             </plugins>
         </pluginManagement>
     	<plugins>
@@ -418,13 +430,7 @@
   					</configuration>
   				</configuration>
   			</plugin>
-  			<!-- Can be run to build a report on dependencies with security vulnerabilities -->
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>${maven.dependency.check.plugin.version}</version>
-			</plugin>
-			<!-- Manage license removal, modification and addition  -->
+  			<!-- Manage license removal, modification and addition  -->
 			<plugin>
     			<groupId>com.mycila</groupId>
    				<artifactId>license-maven-plugin</artifactId>
@@ -509,6 +515,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- Can be run to build a report on dependencies with security vulnerabilities -->
 			<plugin>
 				<groupId>org.owasp</groupId>
 				<artifactId>dependency-check-maven</artifactId>
@@ -540,6 +547,19 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>${maven-failsafe-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<skipTests>${skip.surefire.tests}</skipTests>
+				</configuration>
 			</plugin>
 		</plugins>
 		<!-- Build info and misc resource stuff -->
@@ -604,9 +624,9 @@
 			<plugin>
 				<groupId>org.owasp</groupId>
 				<artifactId>dependency-check-maven</artifactId>
-				<version>${maven.dependency.check.plugin.version}</version>
+				<version>${dependency-check-plugin.version}</version>
 				<configuration>
-					<aggregate>true</aggregate>
+<!--					<aggregate>true</aggregate>-->
 				</configuration>
 				<reportSets>
 					<reportSet>

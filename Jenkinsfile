@@ -8,16 +8,24 @@ pipeline {
                 sh 'mvn clean install -DskipITs'
             }
         }
+        post {
+            always {
+                junit '**/target/surefire-reports/*.xml'
+            }
+        }
         stage('integration tests') {
             steps {
                 sh 'mvn clean verify -Dskip.surefire.tests=true'
             }
         }
+        post {
+            always {
+                junit '**/target/surefire-reports/*.xml'
+            }
+        }
     }
     post {
         always {
-            junit '**/target/surefire-reports/*.xml'
-            junit '**/target/failsafe-reports/*.xml'
             jacoco(
                   execPattern: '**/target/jacoco.exec',
                   classPattern: '**/target/classes',

@@ -97,26 +97,4 @@
 			<url>https://repo.spring.io/plugins-release/</url>
 		</pluginRepository>
 	</pluginRepositories>
-	<repositories>
-		<repository>
-			<id>spring-libs-release</id>
-			<name>Spring Releases</name>
-			<url>https://repo.spring.io/libs-release</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>spring-libs-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/libs-milestone/</url>
-		</repository>
-		<repository>
-			<id>xebialabs-releases</id>
-			<url>https://plugins.xebialabs.com/nexus/content/groups/public/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 </project>

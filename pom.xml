@@ -8,7 +8,6 @@
 	<modules>
 		<module>Json_Archetype</module>
 		<module>MVC_Archetype</module>
-		<module>Neo4J_Archetype</module>
 		<module>Aop_Archetype</module>
 		<module>Spring_Archetype</module>
 		<module>Cxf_Archetype</module>
@@ -109,9 +108,6 @@
 		<jackson.version>1.5.3</jackson.version>
 		<jstl.version>1.2</jstl.version>
 		<javax-servlet-api.version>3.0.1</javax-servlet-api.version>
-		<neo4j.version>1.8.1</neo4j.version>
-		<spring.data.neo4j.version>2.1.0.RELEASE</spring.data.neo4j.version>
-		<neo4j-cypher-dsl.version>1.8</neo4j-cypher-dsl.version>
 		<cglib-nodep.version>2.2.2</cglib-nodep.version>
 		<javax-persistence.version>2.0.0</javax-persistence.version>
 		<!-- Maven plugin versions -->
@@ -285,29 +281,6 @@
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-core</artifactId>
 				<version>${spring.version}</version>
-			</dependency>
-			<!-- Neo4j Dependencies -->
-			<dependency>
-				<groupId>org.neo4j</groupId>
-				<artifactId>neo4j-cypher-dsl</artifactId>
-				<version>${neo4j-cypher-dsl.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.neo4j</groupId>
-				<artifactId>neo4j-kernel</artifactId>
-				<version>${neo4j.version}</version>
-				<scope>test</scope>
-				<type>test-jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.neo4j</groupId>
-				<artifactId>neo4j</artifactId>
-				<version>${neo4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-neo4j</artifactId>
-				<version>${spring.data.neo4j.version}</version>
 			</dependency>
 			<!-- Testing Dependencies -->
 			<dependency>

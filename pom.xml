@@ -58,16 +58,16 @@
 
 	<!-- Used for publishing artifacts -->
 	<distributionManagement>
-		<repository> <!-- Release repo -->
-			<id>releases</id>
-			<name>Releases Maven Artifactory Repository</name>
-			<url>http://artifactory.alexhopgood.com/artifactory/libs-release-local</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Snapshot Maven Repository</name>
-			<url>http://artifactory.alexhopgood.com/artifactory/libs-snapshot-local</url>
-		</snapshotRepository>
+<!--		<repository> &lt;!&ndash; Release repo &ndash;&gt;-->
+<!--			<id>releases</id>-->
+<!--			<name>Releases Maven Artifactory Repository</name>-->
+<!--			<url>http://artifactory.alexhopgood.com/artifactory/libs-release-local</url>-->
+<!--		</repository>-->
+<!--		<snapshotRepository>-->
+<!--			<id>snapshots</id>-->
+<!--			<name>Snapshot Maven Repository</name>-->
+<!--			<url>http://artifactory.alexhopgood.com/artifactory/libs-snapshot-local</url>-->
+<!--		</snapshotRepository>-->
 		<site>
 			<id>project-server-site</id>
 			<url>scp://projects.maven.alexhopgood.com/apache2/path/${project.version}/</url>
@@ -85,7 +85,7 @@
 		<spring-boot.version>2.0.0.RELEASE</spring-boot.version>
 		<spring.version>5.0.4.RELEASE</spring.version>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  		<java.version>1.6</java.version>
+  		<java.version>7</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
 		<skip.surefire.tests>false</skip.surefire.tests>
 		<!-- Dependency Versions -->
@@ -116,7 +116,8 @@
 		<javax-persistence.version>2.0.0</javax-persistence.version>
 		<!-- Maven plugin versions -->
         <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
-  		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+  		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<maven-war-plugin.version>3.3.1</maven-war-plugin.version>
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
   		<maven.changelog.plugin.version>2.3</maven.changelog.plugin.version>
   		<maven.findbugs.plugin.version>3.0.1</maven.findbugs.plugin.version>
@@ -133,6 +134,7 @@
 		<maven-failsafe-plugin.version>3.0.0-M1</maven-failsafe-plugin.version>
 		<maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
 		<maven-cargo-plugin.version>1.2.4</maven-cargo-plugin.version>
+
   		<!-- Cargo properties -->
   		<tomcat.containerId>tomcat7x</tomcat.containerId> <!-- tomcat6x -->
   		<hostname>localhost</hostname>
@@ -358,6 +360,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>

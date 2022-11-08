@@ -82,7 +82,8 @@
 
 	<properties>
 		<spring-boot.version>2.7.5</spring-boot.version>
-		<spring.version>5.2.0.RELEASE</spring.version>
+<!--		<spring.version>5.2.0.RELEASE</spring.version>-->
+		<spring.version>5.3.23</spring.version>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>7</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>

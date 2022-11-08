@@ -28,6 +28,13 @@
             <artifactId>jersey-container-grizzly2-http</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+        <!-- Transitive dependency that gets brought in via http unless explicitly declared -->
+        <dependency>
+            <groupId>commonj.sdo</groupId>
+            <artifactId>commonj.sdo</artifactId>
+            <version>2.1.1.v201112051852</version>
+        </dependency>
+
         <!-- uncomment this to get JSON support:
          <dependency>
             <groupId>org.glassfish.jersey.media</groupId>

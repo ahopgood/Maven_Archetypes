@@ -1,5 +1,6 @@
 package com.alexander.maven.archetypes.db;
 
+import org.flywaydb.core.internal.exception.FlywaySqlException;
 import org.h2.jdbcx.JdbcDataSource;
 import org.junit.Test;
 
@@ -33,9 +34,13 @@ public class FlywayRunnerTest {
     }
 
     @Test (expected = NullPointerException.class)
-    public void testRunMigrations_givenEmptyProperties() throws SQLException {
-        FlywayRunner flywayRunner = new FlywayRunner(migrationsLocations, new Properties());
-        flywayRunner.runMigrations();
+    public void testRunMigrations_givenEmptyProperties() throws Throwable {
+        try {
+            FlywayRunner flywayRunner = new FlywayRunner(migrationsLocations, new Properties());
+            flywayRunner.runMigrations();
+        } catch (FlywaySqlException fse) {
+            throw fse.getCause().getCause();
+        }
     }
 
     Properties getTestProperties() {

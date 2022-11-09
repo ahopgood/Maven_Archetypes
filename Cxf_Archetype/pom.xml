@@ -38,6 +38,10 @@
             <artifactId>jaxws-ri</artifactId>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>commonj.sdo</groupId>
+            <artifactId>commonj.sdo</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>

@@ -324,6 +324,13 @@
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
+			<!-- Transitive dependency that gets brought in via http unless explicitly declared -->
+			<dependency>
+				<groupId>commonj.sdo</groupId>
+				<artifactId>commonj.sdo</artifactId>
+				<version>2.1.1.v201112051852</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -700,5 +707,12 @@
 				<module>Hibernate_Archetype</module>
 			</modules>
   		</profile>
-  	</profiles>	
+  	</profiles>
+
+	<repositories>
+		<repository>
+			<id>wso2-public</id>
+			<url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+		</repository>
+	</repositories>
 </project>

@@ -82,7 +82,8 @@
 
 	<properties>
 		<spring-boot.version>2.7.5</spring-boot.version>
-		<spring.version>5.2.0.RELEASE</spring.version>
+		<spring.version>5.3.23</spring.version>
+		<spring-security.version>5.3.13.RELEASE</spring-security.version>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>7</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
@@ -123,7 +124,7 @@
   		<maven.checkstyle.plugin.version>2.9.1</maven.checkstyle.plugin.version>
   		<maven.enforcer.plugin.version>1.4</maven.enforcer.plugin.version>
 		<maven.reports.plugin.version>3.1.0</maven.reports.plugin.version>
-		<dependency-check-plugin.version>7.3.0</dependency-check-plugin.version>
+		<dependency-check-plugin.version>12.2.1</dependency-check-plugin.version>
 		<versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
 		<maven-exec-plugin.version>1.2.1</maven-exec-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
@@ -323,6 +324,13 @@
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
+			<!-- Transitive dependency that gets brought in via http unless explicitly declared -->
+			<dependency>
+				<groupId>commonj.sdo</groupId>
+				<artifactId>commonj.sdo</artifactId>
+				<version>2.1.1.v201112051852</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -496,22 +504,24 @@
 				</executions>
 			</plugin>
 			<!-- Can be run to build a report on dependencies with security vulnerabilities -->
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>${dependency-check-plugin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>aggregate</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<failOnError>false</failOnError>
-					<formats>HTML,XML</formats>
-				</configuration>
-			</plugin>
+			<!-- Disabled for now due to NVD API key requirements and the fact that it takes a long time to run -->
+<!--			<plugin>-->
+<!--				<groupId>org.owasp</groupId>-->
+<!--				<artifactId>dependency-check-maven</artifactId>-->
+<!--				<version>${dependency-check-plugin.version}</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>aggregate</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--				<configuration>-->
+<!--					<nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>-->
+<!--					<failOnError>false</failOnError>-->
+<!--					<formats>HTML,XML</formats>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 			<plugin>
 				<!-- Aggregation not possible at the moment https://github.com/mojohaus/versions-maven-plugin/issues/333 -->
 				<groupId>org.codehaus.mojo</groupId>
@@ -600,22 +610,24 @@
 <!--					</formats>-->
 <!--				</configuration>-->
 <!--			</plugin>-->
-			<!-- Plugin for building reports on dependecies that have security vulnerabilities -->
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>${dependency-check-plugin.version}</version>
-				<configuration>
-<!--					<aggregate>true</aggregate>-->
-				</configuration>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>check</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
+			<!-- Plugin for building reports on dependencies that have security vulnerabilities -->
+			<!-- Disabled for now due to NVD API key requirements and the fact that it takes a long time to run -->
+<!--			<plugin>-->
+<!--				<groupId>org.owasp</groupId>-->
+<!--				<artifactId>dependency-check-maven</artifactId>-->
+<!--				<version>${dependency-check-plugin.version}</version>-->
+<!--				<configuration>-->
+<!--&lt;!&ndash;					<aggregate>true</aggregate>&ndash;&gt;-->
+<!--					<nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>-->
+<!--				</configuration>-->
+<!--				<reportSets>-->
+<!--					<reportSet>-->
+<!--						<reports>-->
+<!--							<report>check</report>-->
+<!--						</reports>-->
+<!--					</reportSet>-->
+<!--				</reportSets>-->
+<!--			</plugin>-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
@@ -699,5 +711,12 @@
 				<module>Hibernate_Archetype</module>
 			</modules>
   		</profile>
-  	</profiles>	
+  	</profiles>
+
+	<repositories>
+		<repository>
+			<id>wso2-public</id>
+			<url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+		</repository>
+	</repositories>
 </project>

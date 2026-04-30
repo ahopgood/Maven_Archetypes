@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/versions")
+@RestController()
 public class MyController {
 
     private Version versionService;
@@ -18,7 +18,7 @@ public class MyController {
         this.versionService = versionService;
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/versions", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<VersionResponse> getVersion() {
         return ResponseEntity
                 .ok()

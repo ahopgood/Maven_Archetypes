@@ -1,30 +1,11 @@
 package com.alexander.maven.archetypes.db;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
 import java.util.Properties;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import com.googlecode.flyway.core.Flyway;
-import com.googlecode.flyway.core.util.ClassPathResource;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.Location;
+import org.flywaydb.core.api.configuration.ClassicConfiguration;
 import org.h2.jdbcx.JdbcDataSource;
-import org.h2.tools.Server;
 
 public class FlywayRunner {
 
@@ -46,9 +27,11 @@ public class FlywayRunner {
 		source.setURL((String)properties.get(DATABASE_URL_PROPERTY));
 		source.setUser((String)properties.get(USERNAME_PROPERTY));
 
-		Flyway flyway = new Flyway();
-		flyway.setDataSource(source);
-		flyway.setLocations(migrationLocation);
+		ClassicConfiguration conf = new ClassicConfiguration();
+		conf.setDataSource(source);
+		conf.setLocations(new Location(migrationLocation));
+		Flyway flyway = new Flyway(conf);
+
 		flyway.migrate();
 	}
 }

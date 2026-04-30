@@ -8,7 +8,6 @@
 	<modules>
 		<module>Json_Archetype</module>
 		<module>MVC_Archetype</module>
-		<module>Neo4J_Archetype</module>
 		<module>Aop_Archetype</module>
 		<module>Spring_Archetype</module>
 		<module>Cxf_Archetype</module>
@@ -58,16 +57,16 @@
 
 	<!-- Used for publishing artifacts -->
 	<distributionManagement>
-		<repository> <!-- Release repo -->
-			<id>releases</id>
-			<name>Releases Maven Artifactory Repository</name>
-			<url>http://artifactory.alexhopgood.com/artifactory/libs-release-local</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<name>Snapshot Maven Repository</name>
-			<url>http://artifactory.alexhopgood.com/artifactory/libs-snapshot-local</url>
-		</snapshotRepository>
+<!--		<repository> &lt;!&ndash; Release repo &ndash;&gt;-->
+<!--			<id>releases</id>-->
+<!--			<name>Releases Maven Artifactory Repository</name>-->
+<!--			<url>http://artifactory.alexhopgood.com/artifactory/libs-release-local</url>-->
+<!--		</repository>-->
+<!--		<snapshotRepository>-->
+<!--			<id>snapshots</id>-->
+<!--			<name>Snapshot Maven Repository</name>-->
+<!--			<url>http://artifactory.alexhopgood.com/artifactory/libs-snapshot-local</url>-->
+<!--		</snapshotRepository>-->
 		<site>
 			<id>project-server-site</id>
 			<url>scp://projects.maven.alexhopgood.com/apache2/path/${project.version}/</url>
@@ -82,10 +81,11 @@
 	</scm>
 
 	<properties>
-		<spring-boot.version>2.0.0.RELEASE</spring-boot.version>
-		<spring.version>5.0.4.RELEASE</spring.version>
+		<spring-boot.version>2.7.5</spring-boot.version>
+		<spring.version>5.3.23</spring.version>
+		<spring-security.version>5.3.13.RELEASE</spring-security.version>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  		<java.version>1.6</java.version>
+  		<java.version>7</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
 		<skip.surefire.tests>false</skip.surefire.tests>
 		<!-- Dependency Versions -->
@@ -103,20 +103,18 @@
 		<jersey.version>2.19</jersey.version>
 		<h2.version>2.1.210</h2.version>
 		<hsqldb.version>2.0.0</hsqldb.version>
-		<flyway.version>2.0.3</flyway.version>
+		<flyway.version>8.2.2</flyway.version>
 		<mysql-connector.version>8.0.16</mysql-connector.version>
 		<c3p0.version>0.9.5.4</c3p0.version>
 		<jackson.version>1.5.3</jackson.version>
 		<jstl.version>1.2</jstl.version>
 		<javax-servlet-api.version>3.0.1</javax-servlet-api.version>
-		<neo4j.version>1.8.1</neo4j.version>
-		<spring.data.neo4j.version>2.1.0.RELEASE</spring.data.neo4j.version>
-		<neo4j-cypher-dsl.version>1.8</neo4j-cypher-dsl.version>
 		<cglib-nodep.version>2.2.2</cglib-nodep.version>
 		<javax-persistence.version>2.0.0</javax-persistence.version>
 		<!-- Maven plugin versions -->
         <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
-  		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+  		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<maven-war-plugin.version>3.3.1</maven-war-plugin.version>
   		<maven.cobertura.plugin.version>2.7</maven.cobertura.plugin.version>
   		<maven.changelog.plugin.version>2.3</maven.changelog.plugin.version>
   		<maven.findbugs.plugin.version>3.0.1</maven.findbugs.plugin.version>
@@ -126,13 +124,14 @@
   		<maven.checkstyle.plugin.version>2.9.1</maven.checkstyle.plugin.version>
   		<maven.enforcer.plugin.version>1.4</maven.enforcer.plugin.version>
 		<maven.reports.plugin.version>3.1.0</maven.reports.plugin.version>
-		<dependency-check-plugin.version>6.1.0</dependency-check-plugin.version>
+		<dependency-check-plugin.version>12.2.1</dependency-check-plugin.version>
 		<versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
 		<maven-exec-plugin.version>1.2.1</maven-exec-plugin.version>
 		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
 		<maven-failsafe-plugin.version>3.0.0-M1</maven-failsafe-plugin.version>
 		<maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
 		<maven-cargo-plugin.version>1.2.4</maven-cargo-plugin.version>
+
   		<!-- Cargo properties -->
   		<tomcat.containerId>tomcat7x</tomcat.containerId> <!-- tomcat6x -->
   		<hostname>localhost</hostname>
@@ -208,7 +207,7 @@
 			</dependency>
 			<!-- Database Dependencies -->
 			<dependency>
-				<groupId>com.googlecode.flyway</groupId>
+				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-core</artifactId>
 				<version>${flyway.version}</version>
 			</dependency>
@@ -284,29 +283,6 @@
 				<artifactId>spring-security-core</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			<!-- Neo4j Dependencies -->
-			<dependency>
-				<groupId>org.neo4j</groupId>
-				<artifactId>neo4j-cypher-dsl</artifactId>
-				<version>${neo4j-cypher-dsl.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.neo4j</groupId>
-				<artifactId>neo4j-kernel</artifactId>
-				<version>${neo4j.version}</version>
-				<scope>test</scope>
-				<type>test-jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.neo4j</groupId>
-				<artifactId>neo4j</artifactId>
-				<version>${neo4j.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-neo4j</artifactId>
-				<version>${spring.data.neo4j.version}</version>
-			</dependency>
 			<!-- Testing Dependencies -->
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
@@ -348,6 +324,13 @@
 				<artifactId>spring-boot-starter-test</artifactId>
 				<version>${spring-boot.version}</version>
 			</dependency>
+			<!-- Transitive dependency that gets brought in via http unless explicitly declared -->
+			<dependency>
+				<groupId>commonj.sdo</groupId>
+				<artifactId>commonj.sdo</artifactId>
+				<version>2.1.1.v201112051852</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -358,6 +341,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>${maven-compiler-plugin.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
@@ -516,22 +504,24 @@
 				</executions>
 			</plugin>
 			<!-- Can be run to build a report on dependencies with security vulnerabilities -->
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>${dependency-check-plugin.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>aggregate</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<failOnError>false</failOnError>
-					<formats>HTML,XML</formats>
-				</configuration>
-			</plugin>
+			<!-- Disabled for now due to NVD API key requirements and the fact that it takes a long time to run -->
+<!--			<plugin>-->
+<!--				<groupId>org.owasp</groupId>-->
+<!--				<artifactId>dependency-check-maven</artifactId>-->
+<!--				<version>${dependency-check-plugin.version}</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>aggregate</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--				<configuration>-->
+<!--					<nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>-->
+<!--					<failOnError>false</failOnError>-->
+<!--					<formats>HTML,XML</formats>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 			<plugin>
 				<!-- Aggregation not possible at the moment https://github.com/mojohaus/versions-maven-plugin/issues/333 -->
 				<groupId>org.codehaus.mojo</groupId>
@@ -620,22 +610,24 @@
 <!--					</formats>-->
 <!--				</configuration>-->
 <!--			</plugin>-->
-			<!-- Plugin for building reports on dependecies that have security vulnerabilities -->
-			<plugin>
-				<groupId>org.owasp</groupId>
-				<artifactId>dependency-check-maven</artifactId>
-				<version>${dependency-check-plugin.version}</version>
-				<configuration>
-<!--					<aggregate>true</aggregate>-->
-				</configuration>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>check</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
+			<!-- Plugin for building reports on dependencies that have security vulnerabilities -->
+			<!-- Disabled for now due to NVD API key requirements and the fact that it takes a long time to run -->
+<!--			<plugin>-->
+<!--				<groupId>org.owasp</groupId>-->
+<!--				<artifactId>dependency-check-maven</artifactId>-->
+<!--				<version>${dependency-check-plugin.version}</version>-->
+<!--				<configuration>-->
+<!--&lt;!&ndash;					<aggregate>true</aggregate>&ndash;&gt;-->
+<!--					<nvdApiKeyEnvironmentVariable>NVD_API_KEY</nvdApiKeyEnvironmentVariable>-->
+<!--				</configuration>-->
+<!--				<reportSets>-->
+<!--					<reportSet>-->
+<!--						<reports>-->
+<!--							<report>check</report>-->
+<!--						</reports>-->
+<!--					</reportSet>-->
+<!--				</reportSets>-->
+<!--			</plugin>-->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
@@ -719,5 +711,12 @@
 				<module>Hibernate_Archetype</module>
 			</modules>
   		</profile>
-  	</profiles>	
+  	</profiles>
+
+	<repositories>
+		<repository>
+			<id>wso2-public</id>
+			<url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+		</repository>
+	</repositories>
 </project>

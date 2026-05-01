@@ -5,7 +5,7 @@ import java.util.List;
 import javax.naming.OperationNotSupportedException;
 
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alexander.maven.archetypes.domain.dao.BaseDao;
 
@@ -18,7 +18,7 @@ public abstract class AbstractHibernateDao<T> implements BaseDao<T> {
 	 * Inject the session factory from spring config.
 	 * @param sessionFactory
 	 */
-	@Required
+	@Autowired(required = true)
 	public void setSessionFactory(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}

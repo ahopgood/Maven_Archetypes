@@ -25,13 +25,9 @@ public class StartUp {
 	public static void main(String[] args){
 
 		System.out.println("Starting Context");
-		ClassPathXmlApplicationContext xmlContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.alexander.maven");
-
-		context.setParent(xmlContext);
 		context.refresh();
 
-		
 		Object bean1 = context.getBean("personDao");
 		if (bean1 instanceof PersonDao){
 			PersonDao dao = (PersonDao)bean1;

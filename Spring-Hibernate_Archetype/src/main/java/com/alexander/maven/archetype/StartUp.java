@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
@@ -24,7 +25,12 @@ public class StartUp {
 	public static void main(String[] args){
 
 		System.out.println("Starting Context");
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ClassPathXmlApplicationContext xmlContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext("com.alexander.maven");
+
+		context.setParent(xmlContext);
+		context.refresh();
+
 		
 		Object bean1 = context.getBean("personDao");
 		if (bean1 instanceof PersonDao){
@@ -32,7 +38,7 @@ public class StartUp {
 		} else {
 			System.out.println("Have the wrong type of bean class "+bean1.getClass().getSimpleName());
 		}
-		
+
 		Object bean2 = context.getBean("controller");
 		if (bean2 instanceof PersonController){
 			PersonController controller = (PersonController)bean2;

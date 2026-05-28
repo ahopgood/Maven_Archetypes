@@ -1,7 +1,10 @@
 package com.alexander.maven.archetypes.controllers;
 
 import com.alexander.maven.archetypes.dao.PersonDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class PersonController {
 
 	private PersonDao personDao;
@@ -10,7 +13,7 @@ public class PersonController {
 		System.out.println("In PersonController constructor");
 	}
 	
-	public void setPersonDao(PersonDao personDao){
+	public void setPersonDao(@Autowired PersonDao personDao){
 		System.out.println("Setting the PersonDao");
 		this.personDao = personDao;
 	}

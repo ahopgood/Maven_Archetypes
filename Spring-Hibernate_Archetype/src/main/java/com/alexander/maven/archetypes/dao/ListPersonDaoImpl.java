@@ -4,7 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.alexander.maven.archetypes.domain.Person;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ListPersonDaoImpl implements PersonDao {
 
 	protected List<Person> persons = new LinkedList<Person>();

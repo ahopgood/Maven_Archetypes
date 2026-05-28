@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.alexander.maven.ApplicationConfig;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +22,10 @@ import com.alexander.maven.archetypes.dao.BaseDao;
 import com.alexander.maven.archetypes.domain.TestEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"hibernateContext.xml"})
-@Transactional(transactionManager = "transactionManager")
+//@ContextConfiguration(locations = {"hibernateContext.xml"})
+@ContextConfiguration(classes = {HibernateTestConf.class, ApplicationConfig.class})
+//@Transactional(transactionManager = "transactionManager")
+@Transactional(transactionManager = "hibernateTransactionManager")
 public class AbstractHibernateDaoTest {
 
 	private BaseDao<TestEntity> hibernateDao; 

@@ -94,7 +94,7 @@
 		<junit.dep.version>4.10</junit.dep.version>
 		<mockito.version>2.22.0</mockito.version>
 		<commons-lang.version>2.4</commons-lang.version>
-		<commons-lang3.version>3.1</commons-lang3.version>
+		<commons-lang3.version>3.18.0</commons-lang3.version>
 		<aspectjweaver.version>1.7.1</aspectjweaver.version>
 		<hibernate-core.version>4.1.7.Final</hibernate-core.version>
 		<cxf.bundle.version>2.7.0</cxf.bundle.version>

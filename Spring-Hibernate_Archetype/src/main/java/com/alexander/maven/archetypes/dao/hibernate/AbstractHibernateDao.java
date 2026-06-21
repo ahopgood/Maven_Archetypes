@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +27,7 @@ public abstract class AbstractHibernateDao<T> implements BaseDao<T> {
 	 * Inject the session factory from spring config.
 	 * @param sessionFactory
 	 */
-	@Required
+	@Autowired(required = true)
 	public void setSessionFactory(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}

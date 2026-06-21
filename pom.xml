@@ -104,7 +104,7 @@
 		<h2.version>2.1.210</h2.version>
 		<hsqldb.version>2.0.0</hsqldb.version>
 		<flyway.version>8.2.2</flyway.version>
-		<mysql-connector.version>8.0.16</mysql-connector.version>
+		<mysql-connector.version>8.0.28</mysql-connector.version>
 		<c3p0.version>0.9.5.4</c3p0.version>
 		<jackson.version>1.5.3</jackson.version>
 		<jstl.version>1.2</jstl.version>

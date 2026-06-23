@@ -82,35 +82,25 @@
 
 	<properties>
 		<spring-boot.version>2.7.5</spring-boot.version>
-		<spring.version>5.3.23</spring.version>
-		<spring-security.version>5.3.13.RELEASE</spring-security.version>
   		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   		<java.version>8</java.version>
   		<maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
 		<skip.surefire.tests>false</skip.surefire.tests>
 		<!-- Dependency Versions -->
-		<junit-5.version>5.6.2</junit-5.version>
 		<archunit.version>0.14.1</archunit.version>
-		<junit.dep.version>4.10</junit.dep.version>
-		<mockito.version>2.22.0</mockito.version>
 		<commons-lang.version>2.4</commons-lang.version>
 		<commons-lang3.version>3.1</commons-lang3.version>
 		<aspectjweaver.version>1.7.1</aspectjweaver.version>
-		<hibernate-core.version>4.1.7.Final</hibernate-core.version>
 		<cxf.bundle.version>2.7.0</cxf.bundle.version>
 		<jaxws-ri.version>2.3.0</jaxws-ri.version>
 		<activation-api.version>1.2.0</activation-api.version>
 		<jersey.version>2.19</jersey.version>
-		<h2.version>2.1.210</h2.version>
-		<hsqldb.version>2.0.0</hsqldb.version>
-		<flyway.version>8.2.2</flyway.version>
-		<mysql-connector.version>8.0.16</mysql-connector.version>
 		<c3p0.version>0.9.5.4</c3p0.version>
 		<jackson.version>1.5.3</jackson.version>
 		<jstl.version>1.2</jstl.version>
 		<javax-servlet-api.version>3.0.1</javax-servlet-api.version>
 		<cglib-nodep.version>2.2.2</cglib-nodep.version>
-		<javax-persistence.version>2.0.0</javax-persistence.version>
+
 		<!-- Maven plugin versions -->
         <maven.site.plugin.version>3.7.1</maven.site.plugin.version>
   		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -144,14 +134,16 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
 				<groupId>commons-lang</groupId>
 				<artifactId>commons-lang</artifactId>
 				<version>${commons-lang.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>${commons-lang3.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.aspectj</groupId>
@@ -170,27 +162,6 @@
 				<type>pom</type>
 			</dependency>
 			<dependency>
-				<groupId>javax.activation</groupId>
-				<artifactId>javax.activation-api</artifactId>
-				<version>${activation-api.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>jstl</artifactId>
-				<version>${jstl.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>${javax-servlet-api.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.persistence</groupId>
-				<artifactId>javax.persistence</artifactId>
-				<version>${javax-persistence.version}</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
 				<groupId>org.codehaus.jackson</groupId>
 				<artifactId>jackson-mapper-asl</artifactId>
 				<version>${jackson.version}</version>
@@ -207,100 +178,9 @@
 			</dependency>
 			<!-- Database Dependencies -->
 			<dependency>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-core</artifactId>
-				<version>${flyway.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate-core.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>${h2.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>mysql</groupId>
-				<artifactId>mysql-connector-java</artifactId>
-				<version>${mysql-connector.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>com.mchange</groupId>
 				<artifactId>c3p0</artifactId>
 				<version>${c3p0.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.hsqldb</groupId>
-				<artifactId>hsqldb</artifactId>
-				<version>${hsqldb.version}</version>
-			</dependency>
-			<!-- Spring Dependencies -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-webmvc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-jdbc</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${spring.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-config</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-core</artifactId>
-				<version>${spring.version}</version>
-			</dependency>
-			<!-- Testing Dependencies -->
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter</artifactId>
-				<version>${junit-5.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.junit.vintage</groupId>
-				<artifactId>junit-vintage-engine</artifactId>
-				<version>${junit-5.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-core</artifactId>
-				<version>${mockito.version}</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.tngtech.archunit</groupId>
@@ -531,9 +411,10 @@
 					<execution>
 						<phase>compile</phase>
 						<goals>
-							<goal>property-updates-report</goal>
-							<goal>dependency-updates-report</goal>
-							<goal>plugin-updates-report</goal>
+							<!-- disable for faster build speed -->
+<!--							<goal>property-updates-report</goal>-->
+<!--							<goal>dependency-updates-report</goal>-->
+<!--							<goal>plugin-updates-report</goal>-->
 						</goals>
 					</execution>
 				</executions>

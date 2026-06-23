@@ -27,6 +27,6 @@ pipeline {
 //                reportFiles: 'dependency-updates-report.html,property-updates-report.html,plugin-updates-report.html',
 //                reportName: "Versions Report"
 //            ])
-//        }
+        }
     }
 }
